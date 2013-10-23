@@ -1,0 +1,3 @@
+ggdG	Clear the file, deleting all content
+V~	Toggle case of current line
+viw~	Toggle case of current word
