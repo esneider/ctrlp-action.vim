@@ -25,7 +25,15 @@ endif
 
 call filter(s:recipes, 'v:val =~ "^\\S.*"')
 
+function! s:syntax()
+	if !ctrlp#nosy()
+		call ctrlp#hicheck('CtrlPTabExtra', 'Comment')
+		syntax match CtrlPTabExtra '^\zs.*\ze\t'
+    endif
+endfunction
+
 function! ctrlp#recipes#init()
+	call s:syntax()
     return s:recipes
 endfunction
 
