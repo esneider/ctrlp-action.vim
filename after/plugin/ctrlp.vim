@@ -5,7 +5,7 @@ endif
 let s:save_cpo = &cpo
 set cpo&vim
 
-command! CtrlPAction call ctrlp#init(ctrlp#action#id())
+command! CtrlPHow call ctrlp#init(ctrlp#how#id())
 
 let &cpo = s:save_cpo
 unlet s:save_cpo
