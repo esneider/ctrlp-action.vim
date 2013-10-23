@@ -1,8 +1,8 @@
-# Vim recipies for humans
+# Vim recipes for humans
 
 ## What?
 
-`ctrlp-how` exposes common commands and use cases in natural
+`ctrlp-recipes` exposes common commands and use cases in natural
 language.
 
 Never again lose time and focus in googling commands you'll
@@ -24,14 +24,14 @@ viw~  Toggle case of current word
 ## Install
 
 ```vim
-Bundle 'esneider/ctrlp-how.vim'
+Bundle 'esneider/ctrlp-recipes.vim'
 ```
 
 
 ## Use
 
 ```vim
-:CtrlPHow
+:CtrlPRecipes
 ```
 
 We recommend using Ctrl+Shift+P as a binding
@@ -39,6 +39,6 @@ We recommend using Ctrl+Shift+P as a binding
 
 ## Extend
 
-You can define your own _hows_ by declaring a `g:how_list` array of strings. Each of these strings should be in the form of `<command>\t<description>`.
+You can define your own _recipes_ by declaring a `g:ctrlp_recipes` array of strings. Each of these strings should be in the form of `<command>\t<description>`.
 
     let g:action_list = ["gg	Go to the beginning of the buffer"]
