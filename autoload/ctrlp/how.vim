@@ -32,7 +32,7 @@ function! ctrlp#how#accept(mode, choice)
     let cmd = split(a:choice, '\t')[0]
 
     if cmd[0] == ':'
-        cmd .= '\n'
+        let cmd .= "\n"
     endif
 
     call feedkeys(cmd)

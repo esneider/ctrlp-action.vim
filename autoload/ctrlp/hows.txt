@@ -1,3 +1,12 @@
-ggdG	Clear the file, deleting all content
+ggdG	Delete the whole buffer
+VU	Change case of current line to upper case
+Vu	Change case of current line to lower case
+viwU	Change case of current word to upper case
+viwu	Change case of current word to lower case
 V~	Toggle case of current line
 viw~	Toggle case of current word
+:set tabstop=2	Set tab width to 2
+:set tabstop=4	Set tab width to 4
+:set tabstop=8	Set tab width to 8
+yy	Yank current line
+
