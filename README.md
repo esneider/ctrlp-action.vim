@@ -15,18 +15,24 @@ Think in terms of what you want, not how you want it done.
 
 Search for 'toggle case':
 
-    V~    Toggle case of current line
-    viw~  Toggle case of current word
+```
+V~    Toggle case of current line
+viw~  Toggle case of current word
+```
 
 
 ## Install
 
-    Bundle 'esneider/ctrlp-how.vim'
+```vim
+Bundle 'esneider/ctrlp-how.vim'
+```
 
 
 ## Use
 
-    :CtrlPHow
+```vim
+:CtrlPHow
+```
 
 We recommend using Ctrl+Shift+P as a binding
 
