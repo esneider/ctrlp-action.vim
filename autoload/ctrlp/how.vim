@@ -23,6 +23,8 @@ if exists("g:how_list")
     call extend(s:how_list, g:how_list)
 endif
 
+call filter(s:how_list, 'v:val =~ "^\\S.*"')
+
 function! ctrlp#how#init()
     return s:how_list
 endfunction
