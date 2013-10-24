@@ -45,7 +45,15 @@ endf
 
 function! s:recipes()
 
-    let recipes = readfile(s:path . '/recipes.txt')
+    let rfiles = split(&rtp, ',') + [s:path]
+    let rfiles = map(rfiles, 'v:val . "/recipes.txt"')
+    let rfiles = filter(rfiles, 'filereadable(v:val)')
+
+    let recipes = []
+
+    for rfile in rfiles
+        call extend(recipes, readfile(rfile))
+    endfor
 
     if exists('g:ctrlp_recipes')
         call extend(recipes, g:ctrlp_recipes)
