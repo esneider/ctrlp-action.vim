@@ -96,18 +96,18 @@ zg	Spell checking: Add Current Word To Dictionary
 
  ## Vim ##
 
-:e $MYVIMRC<CR>	Vimrc: Edit
-:version<CR>	Version
-:help<CR>	Help
-:xa<CR>		Save and Exit
-:xa<CR>		Save and Quit
-:xa!<CR>	Exit
-:xa!<CR>	Quit
+:e $MYVIMRC<CR>	Vim: Edit Vimrc
+:version<CR>	Vim: Version
+:help<CR>	Vim: Help
+:xa<CR>		Vim: Save and Exit
+:xa<CR>		Vim: Save and Quit
+:xa!<CR>	Vim: Exit
+:xa!<CR>	Vim: Quit
 
  ## History ##
 
-u		Undo
-<C-r>		Redo
+u		History: Undo
+<C-r>		History: Redo
 
  ## Text Edition ##
 
