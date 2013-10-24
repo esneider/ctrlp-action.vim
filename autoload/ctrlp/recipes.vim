@@ -33,17 +33,23 @@ function! s:syntax()
     if !ctrlp#nosy()
         call ctrlp#hicheck('CtrlPTabExtra', 'Comment')
         syn match CtrlPTabExtra '^\zs[^\t]*\t\ze'
+        if has('conceal')
+            setlocal conceallevel=2
+            setlocal concealcursor="nc"
+            syn match CtrlPConceal '\zs<[Cc][Rr]>\ze\t' conceal containedin=CtrlPTabExtra
+        endif
     endif
 endfunction
 
 function! s:load_recipes()
-    let s:recipes = readfile(s:path . "/recipes.txt")
+    let s:recipes = readfile(s:path . '/recipes.txt')
 
-    if exists("g:ctrlp_recipes")
+    if exists('g:ctrlp_recipes')
         call extend(s:recipes, g:ctrlp_recipes)
     endif
 
     call filter(s:recipes, 'v:val =~ "^\\S.*"')
+    call map(s:recipes, 'substitute(v:val, "\t\t*", "\t", "g")')
 endfunction
 
 """"""""
@@ -59,9 +65,7 @@ function! ctrlp#recipes#accept(mode, choice)
     call ctrlp#exit()
 
     let cmd = split(a:choice, '\t')[0]
-    if cmd[0] == ':'
-        let cmd .= "\n"
-    endif
+    let cmd = substitute(cmd, '<[Cc][Rr]>$', "\<CR>", '')
 
     call feedkeys(cmd)
 endfunction
