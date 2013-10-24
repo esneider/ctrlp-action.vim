@@ -22,22 +22,8 @@ call add(g:ctrlp_ext_vars, {
 \   'nolim': 1,
 \})
 
-let s:id = g:ctrlp_builtins + len(g:ctrlp_ext_vars)
-
-"""""""""""""
-" Plugin vars
-"""""""""""""
-
+let s:id   = g:ctrlp_builtins + len(g:ctrlp_ext_vars)
 let s:path = expand("<sfile>:p:h")
-
-let s:special = '\v'.
-\   '\<'.
-\       '([CSATM]-)*'.
-\       '('.
-\           '.|Tab|CR|Up|Down|Right|Left|Esc|BS|Space|'.
-\           'Bslash|Leader|Bar|F[0-9]+|t_..|Char_.+'.
-\       ')'.
-\   '\>'
 
 """""""
 " Utils
@@ -57,16 +43,18 @@ function! s:syntax()
     endif
 endf
 
-function! s:load_recipes()
+function! s:recipes()
 
-    let s:recipes = readfile(s:path . '/recipes.txt')
+    let recipes = readfile(s:path . '/recipes.txt')
 
     if exists('g:ctrlp_recipes')
-        call extend(s:recipes, g:ctrlp_recipes)
+        call extend(recipes, g:ctrlp_recipes)
     endif
 
-    call filter(s:recipes, 'v:val =~ "^\\S.*"')
-    call map(s:recipes, 'substitute(v:val, "\t\t*", "\t", "g")')
+    call filter(recipes, 'v:val =~ "^\\S.*"')
+    call map(recipes, 'substitute(v:val, "\t\t*", "\t", "g")')
+
+    return recipes
 endf
 
 """"""""
@@ -76,7 +64,7 @@ endf
 function! ctrlp#recipes#init()
 
     call s:syntax()
-    return s:recipes
+    return s:recipes()
 endf
 
 function! ctrlp#recipes#accept(mode, choice)
@@ -84,7 +72,7 @@ function! ctrlp#recipes#accept(mode, choice)
     call ctrlp#exit()
 
     let cmd = split(a:choice, '\t')[0]
-    let cmd = substitute(cmd, s:special, '\=eval("\"\\".submatch(0)."\"")', 'i')
+    let cmd = substitute(cmd, '\v\<([CSATM]-)*\w+\>', '\=eval("\"\\".submatch(0)."\"")', 'i')
 
     call feedkeys(cmd)
 endf
@@ -93,9 +81,3 @@ function! ctrlp#recipes#id()
 
     return s:id
 endf
-
-""""""
-" Init
-""""""
-
-call s:load_recipes()
