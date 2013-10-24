@@ -1,25 +1,25 @@
  ## Toggle Options ##
 
-:set wrap!<CR>		Word Wrap: Toggle
-:set spell!<CR>		Spell Checking: Toggle
-:set list!<CR>		Show Invisible Characters: Toggle
-:set number!<CR>	Line Numbers: Toggle
+:set wrap!<CR>			Word Wrap: Toggle
+:set spell!<CR>			Spell Checking: Toggle
+:set list!<CR>			Show Invisible Characters: Toggle
+:set number!<CR>		Line Numbers: Toggle
 :set cursorline!<CR>	Show Cursor Line: Toggle
 
  ## Misc Options ##
 
-:set vb t_vb=<CR>	Error Bell: Disable
-:set mouse=a<CR>	Mouse: Enable
+:set vb t_vb=<CR>		Error Bell: Disable
+:set mouse=a<CR>		Mouse: Enable
 :set backspace=2<CR>	Backspace: Work in Insert Mode
 :set laststatus=2<CR>	Status Line: Show
-:set t_Co=256<CR>	Colors: Force 256 Colors
+:set t_Co=256<CR>		Colors: Force 256 Colors
 :set clipboard=unnamed,unnamedplus<CR>	Clipboard: Use System Clipboard
 
  ## Indentation ##
 
-:set expandtab<CR>	Indentation: Use Tabs
+:set expandtab<CR>		Indentation: Use Tabs
 :set noexpandtab<CR>	Indentation: Use Spaces
-:retab<CR>		Indentation: Reindent
+:retab<CR>				Indentation: Reindent
 
  ## Encoding ##
 
@@ -29,11 +29,11 @@
 
  ## Convert Case ##
 
-VU	Convert Case: Upper Case Current Line
-Vu	Convert Case: Lower Case Current Line
+VU		Convert Case: Upper Case Current Line
+Vu		Convert Case: Lower Case Current Line
 viwU	Convert Case: Upper Case Current Word
 viwu	Convert Case: Lower Case Current Word
-V~	Convert Case: Swap Case Current Line
+V~		Convert Case: Swap Case Current Line
 viw~	Convert Case: Swap Case Current Word
 
  ## Tab Width ##
@@ -52,21 +52,20 @@ viw~	Convert Case: Swap Case Current Word
 :wqa<CR>	File: Save All and Close
 :qa!<CR>	File: Close All Without Saving
 :saveas 	File: Save As
-:e 		File: Open File
+:e 			File: Open File
 
  ## Search ##
 
-n		Search Results: Next
-N		Search Results: Previous
+n	Search Results: Next
+N	Search Results: Previous
+/	Search
+?	Search Backward
+*	Search: Current Word
+#	Search Backward: Current Word
 :nohlsearch<CR>	Search Results: Clear Highlighting
-/		Search
-?		Search Backward
-*		Search: Current Word
-#		Search Backward: Current Word
 
  ## Tabs ##
 
-:tabnew<CR>	Tab: New
 gt		Tab: Next
 gT		Tab: Previous
 1gt		Tab: Go To Tab 1
@@ -78,6 +77,7 @@ gT		Tab: Previous
 7gt		Tab: Go To Tab 7
 8gt		Tab: Go To Tab 8
 9gt		Tab: Go To Tab 9
+:tabnew<CR>	Tab: New
 
  ## Folding ##
 
@@ -98,20 +98,20 @@ zg	Spell checking: Add Current Word To Dictionary
 
 :e $MYVIMRC<CR>	Vim: Edit Vimrc
 :version<CR>	Vim: Version
-:help<CR>	Vim: Help
-:xa<CR>		Vim: Save and Exit
-:xa<CR>		Vim: Save and Quit
-:xa!<CR>	Vim: Exit
-:xa!<CR>	Vim: Quit
+:help<CR>		Vim: Help
+:xa<CR>			Vim: Save and Exit
+:xa<CR>			Vim: Save and Quit
+:xa!<CR>		Vim: Exit
+:xa!<CR>		Vim: Quit
 
  ## History ##
 
 u		History: Undo
-<C-r>		History: Redo
+<C-r>	History: Redo
 
  ## Text Edition ##
 
-ggdG		Delete Entire File
+ggdG	Delete Entire File
 dd		Delete Current Line
 diw		Delete Current Word
 o		Insert Line After
@@ -121,5 +121,15 @@ O		Insert Line Above
 
  ## Movements ##
 
-gg	Go To Beginning Of File
-G	Go To End Of File
+gg	Go To: Beginning Of File
+G	Go To: End Of File
+w	Go To: Next Word
+b	Go To: Previous Word
+b	Go To: Beginning Of Word
+e	Go To: End Of Word
+)	Go To: Next Sentence
+(	Go To: Previous Sentence
+}	Go To: Next Paragraph
+{	Go To: Previous Paragraph
+^	Go To: Beginning Of Line
+$	Go To: End Of Line
