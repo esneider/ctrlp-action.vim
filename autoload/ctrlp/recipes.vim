@@ -35,7 +35,6 @@ function! s:syntax()
         syn match CtrlPTabExtra '^\zs[^\t]*\t\ze'
         if has('conceal')
             setlocal conceallevel=2
-            setlocal concealcursor="nc"
             syn match CtrlPConceal '\zs<[Cc][Rr]>\ze\t' conceal containedin=CtrlPTabExtra
         endif
     endif
