@@ -17,7 +17,7 @@ call add(g:ctrlp_ext_vars, {
 \   'accept': 'ctrlp#recipes#accept',
 \   'lname': 'recipes',
 \   'sname': 'rcp',
-\   'type': 'line',
+\   'type': 'path',
 \   'sort': 1,
 \   'nolim': 1,
 \})
