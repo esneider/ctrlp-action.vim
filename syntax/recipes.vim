@@ -16,7 +16,7 @@ highlight link recipesCommand  Comment
 highlight link recipesSpace    SpellBad
 highlight link recipesKeycode  Normal
 highlight link recipesBrief    Normal
-highlight link recipesCategory Question
+highlight link recipesCategory Title
 highlight link recipesComment  Special
 
 let b:current_syntax = "recipes"
