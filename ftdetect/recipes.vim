@@ -1,4 +1,4 @@
-autocmd BufNewFile,BufRead recipes.txt set filetype=recipes
+autocmd BufNewFile,BufRead recipes.txt set filetype=recipes.txt
 
-autocmd FileType recipes setlocal noexpandtab sw=4 ts=4 sts=4
-autocmd FileType recipes if has('conceal') | setlocal conceallevel=2 | endif
+autocmd FileType recipes.txt setlocal noexpandtab sw=4 ts=4 sts=4
+autocmd FileType recipes.txt if has('conceal') | setlocal conceallevel=2 | endif
