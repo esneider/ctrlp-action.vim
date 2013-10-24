@@ -6,13 +6,15 @@ syntax match recipesBody     '\v^\S.*$'        transparent           contains=re
 syntax match recipesAction   '\v\t.*$'         transparent contained contains=recipesCategory,recipesBrief
 syntax match recipesCommand  '\v^\S[^\t]*'                 contained contains=recipesNonSpace,recipesSpace
 syntax match recipesSpace    '\v '                         contained contains=NONE
-syntax match recipesNonSpace '\v^[^\t]*[^ \t]' transparent contained contains=NONE
+syntax match recipesNonSpace '\v^[^\t]*[^ \t]' transparent contained contains=recipesKeycode
+syntax match recipesKeycode  '\v\<([CSATM]-)*\w+\>'        contained contains=NONE
 syntax match recipesBrief    '\v.*$'                       contained contains=NONE
 syntax match recipesCategory '\v[^:]*:'                    contained contains=NONE
 syntax match recipesComment  '\v^\s+##.*##\s*$'
 
 highlight link recipesCommand  Comment
 highlight link recipesSpace    SpellBad
+highlight link recipesKeycode  Normal
 highlight link recipesBrief    Normal
 highlight link recipesCategory Question
 highlight link recipesComment  Special
