@@ -22,25 +22,43 @@ call add(g:ctrlp_ext_vars, {
 \   'nolim': 1,
 \})
 
-let s:id   = g:ctrlp_builtins + len(g:ctrlp_ext_vars)
+let s:id = g:ctrlp_builtins + len(g:ctrlp_ext_vars)
+
+"""""""""""""
+" Plugin vars
+"""""""""""""
+
 let s:path = expand("<sfile>:p:h")
+
+let s:special = '\v'.
+\   '\<'.
+\       '([CSATM]-)*'.
+\       '('.
+\           '.|Tab|CR|Up|Down|Right|Left|Esc|BS|Space|'.
+\           'Bslash|Leader|Bar|F[0-9]+|t_..|Char_.+'.
+\       ')'.
+\   '\>'
 
 """""""
 " Utils
 """""""
 
 function! s:syntax()
+
     if !ctrlp#nosy()
+
         call ctrlp#hicheck('CtrlPTabExtra', 'Comment')
         syn match CtrlPTabExtra '^\zs[^\t]*\t\ze'
+
         if has('conceal')
             setlocal conceallevel=2
             syn match CtrlPConceal '\zs<[Cc][Rr]>\ze\t' conceal containedin=CtrlPTabExtra
         endif
     endif
-endfunction
+endf
 
 function! s:load_recipes()
+
     let s:recipes = readfile(s:path . '/recipes.txt')
 
     if exists('g:ctrlp_recipes')
@@ -49,29 +67,32 @@ function! s:load_recipes()
 
     call filter(s:recipes, 'v:val =~ "^\\S.*"')
     call map(s:recipes, 'substitute(v:val, "\t\t*", "\t", "g")')
-endfunction
+endf
 
 """"""""
 " Public
 """"""""
 
 function! ctrlp#recipes#init()
+
     call s:syntax()
     return s:recipes
-endfunction
+endf
 
 function! ctrlp#recipes#accept(mode, choice)
+
     call ctrlp#exit()
 
     let cmd = split(a:choice, '\t')[0]
-    let cmd = substitute(cmd, '<[Cc][Rr]>$', "\<CR>", '')
+    let cmd = substitute(cmd, s:special, '\=eval("\"\\".submatch(0)."\"")', 'i')
 
     call feedkeys(cmd)
-endfunction
+endf
 
 function! ctrlp#recipes#id()
+
     return s:id
-endfunction
+endf
 
 """"""
 " Init
