@@ -25,25 +25,13 @@ call add(g:ctrlp_ext_vars, {
 let s:id   = g:ctrlp_builtins + len(g:ctrlp_ext_vars)
 let s:path = expand("<sfile>:p:h")
 
-"""""""
-" Utils
-"""""""
+""""""""
+" Public
+""""""""
 
-function! s:syntax()
+function! ctrlp#recipes#init()
 
-    if !ctrlp#nosy()
-
-        call ctrlp#hicheck('CtrlPTabExtra', 'Comment')
-        syn match CtrlPTabExtra '^\zs[^\t]*\t\ze'
-
-        if has('conceal')
-            setlocal conceallevel=2
-            syn match CtrlPConceal '\zs<[Cc][Rr]>\ze\t' conceal containedin=CtrlPTabExtra
-        endif
-    endif
-endf
-
-function! s:recipes()
+    setfiletype recipes.txt
 
     let rfiles = split(&rtp, ',') + [s:path]
     let rfiles = map(rfiles, 'v:val . "/recipes.txt"')
@@ -63,16 +51,6 @@ function! s:recipes()
     call map(recipes, 'substitute(v:val, "\t\t*", "\t", "g")')
 
     return recipes
-endf
-
-""""""""
-" Public
-""""""""
-
-function! ctrlp#recipes#init()
-
-    call s:syntax()
-    return s:recipes()
 endf
 
 function! ctrlp#recipes#accept(mode, choice)
