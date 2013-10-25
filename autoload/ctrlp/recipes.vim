@@ -31,6 +31,7 @@ let s:path = expand("<sfile>:p:h")
 
 function! ctrlp#recipes#init()
 
+    let b:recipesCmdLine = 1
     setfiletype recipes.txt
 
     let rfiles = split(&rtp, ',') + [s:path]
