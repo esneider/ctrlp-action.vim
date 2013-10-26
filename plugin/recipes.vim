@@ -14,10 +14,12 @@ let g:loaded_recipes = 1
 
 let s:cr_char = get(g:, 'recipes_cr_char', '↩')
 let s:cmd_len = get(g:, 'recipes_cmd_len', 11)
-let s:error   = "Invalide Recipe. Should be: Recipe 'cmd' 'description'"
 
-let g:recipes_list = []
-let g:recipes_cmds = {}
+let g:recipes_markers = ["\u2060", "\u2061", "\u2062"]
+let g:recipes_list    = []
+let g:recipes_cmds    = {}
+
+let s:error = "Invalide Recipe. Should be: Recipe 'cmd' 'description'"
 
 """""""
 " Utils
@@ -58,6 +60,11 @@ endf
 """"""""
 
 function! recipes#init()
+endf
+
+function! recipes#strip(str)
+
+    return substitute(a:str, '[' . join(g:recipes_markers, '') . ']', '', 'g')
 endf
 
 function! recipes#add(bang, ...)

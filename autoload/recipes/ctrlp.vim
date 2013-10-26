@@ -39,8 +39,7 @@ endf
 function! recipes#ctrlp#accept(mode, choice)
 
     call ctrlp#exit()
-    let choice = substitute(a:choice, "[\u2060\u2061\u2062]", '', '')
-    call feedkeys(g:recipes_cmds[choice])
+    call feedkeys(g:recipes_cmds[recipes#strip(a:choice)])
 endf
 
 function! recipes#ctrlp#id()

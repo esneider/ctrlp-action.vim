@@ -17,16 +17,16 @@ function! s:highlight_list(start, list, end_marker, append)
     endfor
 endf
 
-function! s:highlight(start, pattern)
+function! s:highlight(start, pattern, markers)
 
     call clearmatches()
 
     let start = a:start . '\^\[^\t]\*\t\.\{-}'
 
-    call s:highlight_list(start, split(a:pattern, '\zs'), "\u2062", '')
-    call s:highlight_list(start, split(a:pattern, '\s'),  "\u2061", '\<')
+    call s:highlight_list(start, split(a:pattern, '\zs'), a:markers[2], '')
+    call s:highlight_list(start, split(a:pattern, '\s'),  a:markers[1], '\<')
 
-    call matchadd('recipesMatch', start . '\zs' . a:pattern . "\\ze\\.\\*\u2060\\$")
+    call matchadd('recipesMatch', start . '\zs' . a:pattern . '\ze\.\*' . a:markers[0] . '\$')
 endf
 
 function! s:sort_cmp(a, b)
@@ -61,14 +61,14 @@ endf
 function! recipes#matcher#match(lines, input, limit, mmode, ispath, crfile, regex)
 
     let lines   = []
+    let markers = g:recipes_markers
     let letters = split(a:input, '\zs')
     let words   = split(a:input, '\s')
-    let markers = ["\u2060", "\u2061", "\u2062"]
     let start   = '\V' . (&scs && a:input =~ '\u' ? '\C' : '\c')
 
     for line in a:lines
 ⁠
-        let line   = substitute(line, "[\u2060\u2061\u2062]", '', '')
+        let line   = recipes#strip(line)
         let action = split(line, '\t')[1]
         let gaps   = s:matchlist(start, letters, '', action)
 
@@ -95,7 +95,7 @@ function! recipes#matcher#match(lines, input, limit, mmode, ispath, crfile, rege
     endfor
 
     call sort(lines, 's:sort_cmp')
-    call s:highlight(start, a:input)
+    call s:highlight(start, a:input, markers)
 
     return map(lines, 'v:val[0]')
 endf
