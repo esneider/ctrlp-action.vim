@@ -14,7 +14,8 @@ let g:loaded_ctrlp_recipes = 1
 
 let s:cr_char = get(g:, 'recipes_cr_char', '↩')
 let s:cmd_len = get(g:, 'recipes_cmd_len', 11)
-let s:rlist   = get(g:, 'recipes', [])
+let s:recipes = get(g:, 'recipes', [])
+let s:cmds    = {}
 
 """"""
 " Vars
@@ -30,8 +31,7 @@ call add(g:ctrlp_ext_vars, {
 \   'nolim': 1,
 \})
 
-let s:id   = g:ctrlp_builtins + len(g:ctrlp_ext_vars)
-let s:cmds = {}
+let s:id = g:ctrlp_builtins + len(g:ctrlp_ext_vars)
 
 """""""
 " Utils
@@ -39,56 +39,37 @@ let s:cmds = {}
 
 function! s:load_recipes()
 
-    " Find all recipes files
-    let rfiles = split(&rtp, ',')
-    let rfiles = map(rfiles, 'v:val . "/recipes.txt"')
-    let rfiles = filter(rfiles, 'filereadable(v:val)')
-    let recipes = s:rlist
-
-    " Read recipes
-    for rfile in rfiles
-        call extend(recipes, readfile(rfile))
-    endfor
-
     return recipes
 endf
 
-function! s:pretty_print(cmd, action)
+function! s:print(args)
 
-    " Prettify CRs
-    let cmd = substitute(a:cmd, '<CR>$', s:cr_char, '')
+    let cmd   = a:args[0]
+    let kcode = '\v\<(\w|-)+\>'
+    let enter = match(cmd, '\c<CR>$')
+    let space = match(cmd, '\c\(<Space>\| \)$')
+    let pos   = match(cmd, '\v\c%(\<(Left|Right|Home|End)\>)+$')
+
+    " Compress trailing keycodes
+        if enter > 0 | let cmd = substitute(cmd, '<CR>$', s:cr_char, 'i')
+    elseif space > 0 | let cmd = substitute(cmd, '<Space>$', ' ', 'i')
+    elseif pos   > 0 | let cmd = cmd[ : (pos - 1) ]
+    endif
 
     " Real command length
-    let rlen = len(split(cmd, '\zs'))
-    let rlen -= cmd =~ ' $'
-    let rlen -= cmd =~ s:cr_char . '$'
-
+    let len = len(split(cmd, '\zs')) - (space > 0 || enter > 0)
     " Clear long commands
-    if rlen > s:cmd_len | let cmd = '' | let rlen = 0 | endif
+    if len > s:cmd_len | let cmd = '' | let len = 0 | endif
 
     " Pretty print
-    let rlen = s:cmd_len + len(cmd) - rlen
-    return printf("%*s\t%s", rlen, cmd, a:action)
-endf
+    let len = s:cmd_len + len(cmd) - len
+    let cmd = printf("%*s\t%s", len, cmd, a:args[1])
 
-function! s:prepare(recipes)
+    " Transform literal keycodes
+    let kcodes = substitute(a:args[0], kcode, '\=eval("\"\\".submatch(0)."\"")', '')
+    let s:cmds[cmd] = kcodes
 
-    " Remove empty recipes
-    call filter(a:recipes, 'v:val =~ "^\\S.*"')
-
-    for i in range(len(a:recipes))
-
-        " Remove multiple tabs
-        let rlist = split(substitute(a:recipes[i], '\t\+', '\t', ''), '\t')
-        " Transform literal keycodes
-        let cmd = substitute(rlist[0], '\v\<(\w|-)+\>', '\=eval("\"\\".submatch(0)."\"")', '')
-        " Save command
-        let s:cmds[rlist[1]] = cmd
-
-        let a:recipes[i] = s:pretty_print(rlist[0], rlist[1])
-    endfor
-
-    return a:recipes
+    return cmd
 endf
 
 """"""""
@@ -100,17 +81,20 @@ function! ctrlp#recipes#init()
     let b:recipesCmdLine = 1
     setfiletype recipes.txt
 
-    return s:prepare(s:load_recipes())
+    let recipes = map(s:recipes, 'type(v:val) == 3 ? join(v:val, "\t") : v:val')
+    for dir in split(&rtp, ',')
+        silent! call extend(recipes, readfile(dir . '/recipes.txt'))
+    endfor
+    let recipes = filter(recipes, 'v:val =~ "^\\S.*\t.*\\S"')
+
+    return map(recipes, 'print(split(v:val, "\t"))')
 endf
 
 function! ctrlp#recipes#accept(mode, choice)
 
     call ctrlp#exit()
-
-    let action = split(a:choice, '\t')[1]
-    let action = substitute(action, "[\u2060\u2061\u2062]", '', '')
-
-    call feedkeys(s:cmds[action])
+    let choice = substitute(a:choice, "[\u2060\u2061\u2062]", '', '')
+    call feedkeys(g:recipes_cmds[choice])
 endf
 
 function! ctrlp#recipes#id()
