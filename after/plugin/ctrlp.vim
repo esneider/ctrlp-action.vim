@@ -12,8 +12,8 @@ set cpo&vim
 function! s:recipes()
 
     let matcher = get(g:, 'ctrlp_match_func', {})
-    let g:ctrlp_match_func = {'match': 'ctrlp#recipes#matcher#match'}
-    call ctrlp#init(ctrlp#recipes#id())
+    let g:ctrlp_match_func = {'match': 'recipes#matcher#match'}
+    call ctrlp#init(recipes#ctrlp#id())
     let g:ctrlp_match_func = matcher
 endf
 

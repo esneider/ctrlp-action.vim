@@ -55,10 +55,10 @@ function! s:matchlist(start, list, word, action)
     return 10 * gaps + max
 endf
 
-" 0. We match the pattern exactly, and append a \u2060 character
-" 1. We match by word beginnings, and append a \u2061 character
-" 2. We match any increasing subsequence and append a \u2062
-function! ctrlp#recipes#matcher#match(lines, input, limit, mmode, ispath, crfile, regex)
+" 0. We match the pattern exactly, and append a \u2060 character.
+" 1. We match by word beginnings, and append a \u2061 character.
+" 2. We match any increasing subsequence and append a \u2062.
+function! recipes#matcher#match(lines, input, limit, mmode, ispath, crfile, regex)
 
     let lines   = []
     let letters = split(a:input, '\zs')
