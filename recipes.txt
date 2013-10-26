@@ -91,8 +91,8 @@ zk	Fold: Previous
 
  ## Spell ##
 
-z=	Spell checking: Correct
-zg	Spell checking: Add Current Word To Dictionary
+z=	Spell Checking: Correct
+zg	Spell Checking: Add Current Word To Dictionary
 
  ## Vim ##
 

@@ -16,7 +16,6 @@ let s:cr_char = get(g:, 'recipes_cr_char', '↩')
 let s:cmd_len = get(g:, 'recipes_cmd_len', 11)
 let s:rlist   = get(g:, 'recipes', [])
 
-
 """"""
 " Vars
 """"""
@@ -32,7 +31,6 @@ call add(g:ctrlp_ext_vars, {
 \})
 
 let s:id   = g:ctrlp_builtins + len(g:ctrlp_ext_vars)
-let s:path = expand("<sfile>:p:h")
 let s:cmds = {}
 
 """""""
@@ -41,11 +39,13 @@ let s:cmds = {}
 
 function! s:load_recipes()
 
-    let rfiles = split(&rtp, ',') + [s:path]
+    " Find all recipes files
+    let rfiles = split(&rtp, ',')
     let rfiles = map(rfiles, 'v:val . "/recipes.txt"')
     let rfiles = filter(rfiles, 'filereadable(v:val)')
     let recipes = s:rlist
 
+    " Read recipes
     for rfile in rfiles
         call extend(recipes, readfile(rfile))
     endfor
@@ -106,7 +106,11 @@ endf
 function! ctrlp#recipes#accept(mode, choice)
 
     call ctrlp#exit()
-    call feedkeys(s:cmds[split(a:choice, '\t')[1]])
+
+    let action = split(a:choice, '\t')[1]
+    let action = substitute(action, "[\u2060\u2061\u2062]", '', '')
+
+    call feedkeys(s:cmds[action])
 endf
 
 function! ctrlp#recipes#id()
