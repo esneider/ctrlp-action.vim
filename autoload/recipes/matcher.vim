@@ -68,7 +68,7 @@ function! recipes#matcher#match(lines, input, limit, mmode, ispath, crfile, rege
 
     for line in a:lines
 ⁠
-        let line   = recipes#strip(line)
+        let line   = substitute(line, g:recipes_mrk_ptr, '', '')
         let action = split(line, '\t')[1]
         let gaps   = s:matchlist(start, letters, '', action)
 

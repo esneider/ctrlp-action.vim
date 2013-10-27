@@ -15,7 +15,8 @@ let g:loaded_recipes = 1
 let s:cr_char = get(g:, 'recipes_cr_char', '↩')
 let s:cmd_len = get(g:, 'recipes_cmd_len', 11)
 
-let g:recipes_markers = ["\u2060", "\u2061", "\u2062"]
+let g:recipes_markers = ['  ', '. ', ', ']
+let g:recipes_mrk_ptr = '\V\(' . join(g:recipes_markers, '\|') . '\)\$'
 let g:recipes_list    = []
 let g:recipes_cmds    = {}
 
@@ -46,7 +47,7 @@ function! s:add(bang, cmd, action)
 
     " Pretty print
     let len = s:cmd_len + len(cmd) - len
-    let cmd = printf("%*s\t%s", len, cmd, a:action)
+    let cmd = printf("%*s\t%s", len, cmd, substitute(a:action, '\s*$', '', ''))
 
     " Transform literal keycodes
     let kcodes = substitute(a:cmd, kcode, '\=eval("\"\\".submatch(0)."\"")', '')
@@ -60,11 +61,6 @@ endf
 """"""""
 
 function! recipes#init()
-endf
-
-function! recipes#strip(str)
-
-    return substitute(a:str, '[' . join(g:recipes_markers, '') . ']', '', 'g')
 endf
 
 function! recipes#add(bang, ...)

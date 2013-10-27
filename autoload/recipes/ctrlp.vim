@@ -39,7 +39,8 @@ endf
 function! recipes#ctrlp#accept(mode, choice)
 
     call ctrlp#exit()
-    call feedkeys(g:recipes_cmds[recipes#strip(a:choice)])
+    let choice = substitute(a:choice, g:recipes_mrk_ptr, '', '')
+    call feedkeys(g:recipes_cmds[choice])
 endf
 
 function! recipes#ctrlp#id()
