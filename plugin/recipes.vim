@@ -88,8 +88,6 @@ endf
 " Commands
 """"""""""
 
-autocmd FileType recipes.vim setlocal noexpandtab sw=4 ts=4 sts=4
-autocmd FileType recipes.vim setlocal encoding=utf-8
+autocmd FileType recipes.vim setlocal noet sw=4 ts=4 sts=4 enc=utf-8 so=0
 
-command! -nargs=+ -bang -complete=mapping Recipe
-        \ call recipes#add('!' == '<bang>', <q-args>)
+command! -nargs=+ -bang Recipe call recipes#add('!' == '<bang>', <q-args>)
