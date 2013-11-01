@@ -20,13 +20,13 @@ let g:recipes_mrk_ptr = '\V\(' . join(g:recipes_markers, '\|') . '\)\$'
 let g:recipes_list    = []
 let g:recipes_cmds    = {}
 
-let s:error = "Invalide Recipe. Should be: Recipe 'cmd' 'description'"
+let s:error = "Invalide Recipe. Should be: Recipe 'command' 'description' ['help_tag']"
 
 """""""
 " Utils
 """""""
 
-function! s:add(bang, cmd, action)
+function! s:add(bang, cmd, action, help)
 
     let cmd   = a:bang ? '' : a:cmd
     let kcode = '\v\<(\w|-)+\>'
@@ -52,8 +52,11 @@ function! s:add(bang, cmd, action)
     " Transform literal keycodes
     let kcodes = substitute(a:cmd, kcode, '\=eval("\"\\".submatch(0)."\"")', '')
 
+    " Create help command
+    let help = substitute(a:help, '\(.\)', ":help \\1\<CR>", '')
+
     call add(g:recipes_list, cmd)
-    let g:recipes_cmds[cmd] = kcodes
+    let g:recipes_cmds[cmd] = {'keycode': kcodes, 'help': a:help}
 endf
 
 """"""""
@@ -63,25 +66,21 @@ endf
 function! recipes#init()
 endf
 
-function! recipes#add(bang, ...)
+function! recipes#add(bang, args)
 
-    if !a:0 | echoerr s:error | return | endif
-
+    let args = []
     let pat_single = "'([^']|'')*'"
-    let pat_double = '"([^"]|\")*"'
+    let pat_double = '"([^"\]|\.)*"'
     let pat = '\v^(' . pat_single . '|' . pat_double . ')'
 
-    let cmd = matchstr(a:1, pat)
-    let action = a:1[ len(cmd) : ]
+    call substitute(a:args, pat, '\=call add(args, eval(submatch(0)))', 'g')
 
-    if empty(cmd) || empty(action) | echoerr s:error | return | endif
+    if match(args, '^\s*$') >= 0 || len(args) / 2 != 1
+        echoerr s:error
+        return
+    endif
 
-    let cmd = eval(cmd)
-    let action = eval(action)
-
-    if empty(cmd) || empty(action) | echoerr s:error | return | endif
-
-    call s:add(a:bang, cmd, action)
+    call s:add(a:bang, args[0], args[1], get(args, 2, ''))
 endf
 
 """"""""""
