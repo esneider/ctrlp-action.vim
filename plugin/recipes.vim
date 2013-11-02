@@ -71,9 +71,9 @@ function! recipes#add(bang, args)
     let args = []
     let pat_single = "'([^']|'')*'"
     let pat_double = '"([^"\]|\.)*"'
-    let pat = '\v^(' . pat_single . '|' . pat_double . ')'
+    let pat = '\v(' . pat_single . '|' . pat_double . ')'
 
-    call substitute(a:args, pat, '\=call add(args, eval(submatch(0)))', 'g')
+    call substitute(a:args, pat, '\=add(args, eval(submatch(0)))', 'g')
 
     if match(args, '^\s*$') >= 0 || len(args) / 2 != 1
         echoerr s:error
