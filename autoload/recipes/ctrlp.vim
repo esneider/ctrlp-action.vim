@@ -33,7 +33,7 @@ let s:id = g:ctrlp_builtins + len(g:ctrlp_ext_vars)
 function! recipes#ctrlp#init()
 
     setlocal filetype=recipes.vim encoding=utf-8 scrolloff=0 nolist
-    setlocal noexpandtab shiftwidth=4 tabstop=4 softtabstop=4
+    setlocal noexpandtab shiftwidth=4 tabstop=4 softtabstop=4 cursorline
 
     return g:recipes_list
 endf
