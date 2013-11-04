@@ -63,7 +63,7 @@ endf
 " Public
 """"""""
 
-function! recipes#init()
+function! recipes#load()
 endf
 
 function! recipes#add(bang, args)
@@ -86,7 +86,5 @@ endf
 """"""""""
 " Commands
 """"""""""
-
-autocmd FileType recipes.vim setlocal noet sw=4 ts=4 sts=4 enc=utf-8 so=0
 
 command! -nargs=+ -bang Recipe call recipes#add('!' == '<bang>', <q-args>)

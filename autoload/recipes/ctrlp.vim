@@ -8,7 +8,7 @@ endif
 
 let g:loaded_recipes_ctrlp = 1
 
-call recipes#init()
+call recipes#load()
 
 """"""
 " Vars
@@ -32,7 +32,9 @@ let s:id = g:ctrlp_builtins + len(g:ctrlp_ext_vars)
 
 function! recipes#ctrlp#init()
 
-    setfiletype recipes.vim
+    setlocal filetype=recipes.vim encoding=utf-8 scrolloff=0 nolist
+    setlocal noexpandtab shiftwidth=4 tabstop=4 softtabstop=4
+
     return g:recipes_list
 endf
 
