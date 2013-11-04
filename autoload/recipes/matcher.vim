@@ -1,3 +1,17 @@
+""""""""""""
+" Load guard
+""""""""""""
+
+if exists('g:loaded_recipes_matcher') && g:loaded_recipes_matcher
+    finish
+endif
+
+let g:loaded_recipes_matcher = 1
+
+"""""""
+" Utils
+"""""""
+
 function! s:highlight_list(start, list, end_marker, append)
 
     let rlist = [''] + a:list + ['']
@@ -54,6 +68,10 @@ function! s:matchlist(start, list, word, action)
 
     return 10 * gaps + max
 endf
+
+""""""""
+" Public
+""""""""
 
 " 0. We match the pattern exactly, and append a \u2060 character.
 " 1. We match by word beginnings, and append a \u2061 character.

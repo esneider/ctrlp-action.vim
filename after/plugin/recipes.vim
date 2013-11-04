@@ -1,60 +1,62 @@
-"  Toggle Options
 
-Recipe ':set wrap!<CR>'       'Word Wrap: Toggle'
-Recipe ':set spell!<CR>'      'Spell Checking: Toggle'
-Recipe ':set list!<CR>'       'Show Invisible Characters: Toggle'
-Recipe ':set number!<CR>'     'Line Numbers: Toggle'
+RecipeSection " Toggle Options
+
+Recipe ':set wrap!<CR>' 'Word Wrap: Toggle'
+Recipe ':set spell!<CR>' 'Spell Checking: Toggle'
+Recipe ':set list!<CR>' 'Show Invisible Characters: Toggle'
+Recipe ':set number!<CR>' 'Line Numbers: Toggle'
 Recipe ':set cursorline!<CR>' 'Show Cursor Line: Toggle'
 
-"  Misc Options
+RecipeSection " Misc Options
 
-Recipe ':set vb t_vb=<CR>'     'Error Bell: Disable'
-Recipe ':set mouse=a<CR>'      'Mouse: Enable'
-Recipe ':set backspace=2<CR>'  'Backspace: Work in Insert Mode'
+Recipe ':set vb t_vb=<CR>' 'Error Bell: Disable'
+Recipe ':set mouse=a<CR>' 'Mouse: Enable'
+Recipe ':set backspace=2<CR>' 'Backspace: Work in Insert Mode'
 Recipe ':set laststatus=2<CR>' 'Status Line: Show'
-Recipe ':set t_Co=256<CR>'     'Colors: Force 256 Colors'
+Recipe ':set t_Co=256<CR>' 'Colors: Force 256 Colors'
 Recipe ':set clipboard=unnamed,unnamedplus<CR>' 'Clipboard: Use System Clipboard'
 
-"  Indentation
+RecipeSection 'Indentation'
 
-Recipe ':set expandtab<CR>'   'Indentation: Use Tabs'
-Recipe ':set noexpandtab<CR>' 'Indentation: Use Spaces'
-Recipe ':retab<CR>'           'Indentation: Reindent'
+Recipe ':set expandtab<CR>' 'Use Tabs'
+Recipe ':set noexpandtab<CR>' 'Use Spaces'
+Recipe ':retab<CR>' 'Reindent'
 
-"  Encoding
+RecipeSection 'Encoding'
 
-Recipe ':set encoding=utf-8<CR>'  'Encoding: utf-8'
-Recipe ':set encoding=utf-16<CR>' 'Encoding: utf-16'
-Recipe ':set encoding=latin1<CR>' 'Encoding: latin1'
+Recipe ':set encoding=utf-8<CR>' 'utf-8'
+Recipe ':set encoding=utf-16<CR>' 'utf-16'
+Recipe ':set encoding=latin1<CR>' 'latin1'
 
-"  Convert Case
+RecipeSection 'Convert Case'
 
-Recipe 'VU'   'Convert Case: Upper Case Current Line'
-Recipe 'Vu'   'Convert Case: Lower Case Current Line'
-Recipe 'viwU' 'Convert Case: Upper Case Current Word'
-Recipe 'viwu' 'Convert Case: Lower Case Current Word'
-Recipe 'V~'   'Convert Case: Swap Case Current Line'
-Recipe 'viw~' 'Convert Case: Swap Case Current Word'
+Recipe 'VU' 'Upper Case Current Line'
+Recipe 'Vu' 'Lower Case Current Line'
+Recipe 'viwU' 'Upper Case Current Word'
+Recipe 'viwu' 'Lower Case Current Word'
+Recipe 'V~' 'Swap Case Current Line'
+Recipe 'viw~' 'Swap Case Current Word'
 
-"  Tab Width
+RecipeSection 'Tab Width'
 
-Recipe ':set sw=1 sts=1 ts=1<CR>' 'Tab Width: 1'
-Recipe ':set sw=2 sts=2 ts=2<CR>' 'Tab Width: 2'
-Recipe ':set sw=4 sts=4 ts=4<CR>' 'Tab Width: 4'
-Recipe ':set sw=8 sts=8 ts=8<CR>' 'Tab Width: 8'
+Recipe ':set sw=1 sts=1 ts=1<CR>' '1'
+Recipe ':set sw=2 sts=2 ts=2<CR>' '2'
+Recipe ':set sw=4 sts=4 ts=4<CR>' '4'
+Recipe ':set sw=8 sts=8 ts=8<CR>' '8'
 
-"  File
+RecipeSection 'File'
 
-Recipe ':w<CR>'         'File: Save'
-Recipe ':wa<CR>'        'File: Save All'
-Recipe ':wq<CR>'        'File: Save and Close'
-Recipe ':q!<CR>'        'File: Close Without Saving'
-Recipe ':wqa<CR>'       'File: Save All and Close'
-Recipe ':qa!<CR>'       'File: Close All Without Saving'
-Recipe ':saveas<Space>' 'File: Save As'
-Recipe ':e<Space>'      'File: Open File'
+Recipe ':w<CR>' 'Save'
+Recipe ':wa<CR>' 'Save All'
+Recipe ':wq<CR>' 'Save and Close'
+Recipe ':q!<CR>' 'Close Without Saving'
+Recipe ':wqa<CR>' 'Save All and Close'
+Recipe ':qa!<CR>' 'Close All Without Saving'
+Recipe ':saveas<Space>' 'Save As'
+Recipe ':e<Space>' 'Open File'
+Recipe ':e#<CR>' 'Open Last File'
 
-"  Search
+RecipeSection " Search
 
 Recipe 'n' 'Search Results: Next'
 Recipe 'N' 'Search Results: Previous'
@@ -64,72 +66,72 @@ Recipe '*' 'Search: Current Word'
 Recipe '#' 'Search Backward: Current Word'
 Recipe ':nohlsearch<CR>' 'Search Results: Clear Highlighting'
 
-"  Tabs
+RecipeSection 'Tabs'
 
-Recipe 'gt'  'Tab: Next'
-Recipe 'gT'  'Tab: Previous'
-Recipe '1gt' 'Tab: Go To Tab 1'
-Recipe '2gt' 'Tab: Go To Tab 2'
-Recipe '3gt' 'Tab: Go To Tab 3'
-Recipe '4gt' 'Tab: Go To Tab 4'
-Recipe '5gt' 'Tab: Go To Tab 5'
-Recipe '6gt' 'Tab: Go To Tab 6'
-Recipe '7gt' 'Tab: Go To Tab 7'
-Recipe '8gt' 'Tab: Go To Tab 8'
-Recipe '9gt' 'Tab: Go To Tab 9'
-Recipe ':tabnew<CR>' 'Tab: New'
+Recipe 'gt' 'Next'
+Recipe 'gT' 'Previous'
+Recipe '1gt' 'Go To Tab 1'
+Recipe '2gt' 'Go To Tab 2'
+Recipe '3gt' 'Go To Tab 3'
+Recipe '4gt' 'Go To Tab 4'
+Recipe '5gt' 'Go To Tab 5'
+Recipe '6gt' 'Go To Tab 6'
+Recipe '7gt' 'Go To Tab 7'
+Recipe '8gt' 'Go To Tab 8'
+Recipe '9gt' 'Go To Tab 9'
+Recipe ':tabnew<CR>' 'New'
 
-"  Folding
+RecipeSection 'Fold'
 
-Recipe 'zo' 'Fold: Open'
-Recipe 'zc' 'Fold: Close'
-Recipe 'za' 'Fold: Toggle'
-Recipe 'zR' 'Fold: Open All'
-Recipe 'zM' 'Fold: Close All'
-Recipe 'zj' 'Fold: Next'
-Recipe 'zk' 'Fold: Previous'
+Recipe 'zo' 'Open'
+Recipe 'zc' 'Close'
+Recipe 'za' 'Toggle'
+Recipe 'zR' 'Open All'
+Recipe 'zM' 'Close All'
+Recipe 'zj' 'Next'
+Recipe 'zk' 'Previous'
 
-"  Spell
+RecipeSection 'Spell Checking'
 
-Recipe 'z=' 'Spell Checking: Correct'
-Recipe 'zg' 'Spell Checking: Add Current Word To Dictionary'
+Recipe 'z=' 'Correct'
+Recipe 'zg' 'Add Current Word To Dictionary'
 
-"  Vim
+RecipeSection 'Vim'
 
-Recipe ':e $MYVIMRC<CR>' 'Vim: Edit Vimrc'
-Recipe ':version<CR>'    'Vim: Version'
-Recipe ':help<CR>'       'Vim: Help'
-Recipe ':xa<CR>'         'Vim: Save and Exit'
-Recipe ':xa<CR>'         'Vim: Save and Quit'
-Recipe ':xa!<CR>'        'Vim: Exit'
-Recipe ':xa!<CR>'        'Vim: Quit'
+Recipe ':e $MYVIMRC<CR>' 'Edit Vimrc'
+Recipe ':version<CR>' 'Version'
+Recipe ':help<CR>' 'Help'
+Recipe ':xa<CR>' 'Save and Exit'
+Recipe ':xa<CR>' 'Save and Quit'
+Recipe ':xa!<CR>' 'Exit'
+Recipe ':xa!<CR>' 'Quit'
 
-"  History
+RecipeSection 'History'
 
-Recipe 'u'     'History: Undo'
-Recipe '<C-r>' 'History: Redo'
+Recipe 'u' 'Undo'
+Recipe '<C-r>' 'Redo'
 
-"  Text Edition
+RecipeSection " Text Edition
 
 Recipe 'ggdG' 'Delete Entire File'
-Recipe 'dd'   'Delete Current Line'
-Recipe 'diw'  'Delete Current Word'
-Recipe 'o'    'Insert Line After'
-Recipe 'o'    'Insert Line Below'
-Recipe 'O'    'Inset Line Before'
-Recipe 'O'    'Insert Line Above'
+Recipe 'dd' 'Delete Current Line'
+Recipe 'diw' 'Delete Current Word'
+Recipe 'o' 'Insert Line After'
+Recipe 'o' 'Insert Line Below'
+Recipe 'O' 'Insert Line Before'
+Recipe 'O' 'Insert Line Above'
 
-"  Movements
+RecipeSection 'Go To'
 
-Recipe 'gg' 'Go To: Beginning Of File'
-Recipe 'G'  'Go To: End Of File'
-Recipe 'w'  'Go To: Next Word'
-Recipe 'b'  'Go To: Previous Word'
-Recipe 'b'  'Go To: Beginning Of Word'
-Recipe 'e'  'Go To: End Of Word'
-Recipe ')'  'Go To: Next Sentence'
-Recipe '('  'Go To: Previous Sentence'
-Recipe '}'  'Go To: Next Paragraph'
-Recipe '{'  'Go To: Previous Paragraph'
-Recipe '^'  'Go To: Beginning Of Line'
-Recipe '$'  'Go To: End Of Line'
+Recipe 'gg' 'Beginning Of File'
+Recipe 'G' 'End Of File'
+Recipe 'w' 'Next Word'
+Recipe 'b' 'Previous Word'
+Recipe 'b' 'Beginning Of Word'
+Recipe 'e' 'End Of Word'
+Recipe ')' 'Next Sentence'
+Recipe '(' 'Previous Sentence'
+Recipe '}' 'Next Paragraph'
+Recipe '{' 'Previous Paragraph'
+Recipe '^' 'Beginning Of Line'
+Recipe '$' 'End Of Line'
