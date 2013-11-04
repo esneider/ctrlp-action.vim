@@ -108,7 +108,9 @@ function! recipes#matcher#match(lines, input, limit, mmode, ispath, crfile, rege
                 endif
             endif
 
-            call add(lines, [line . markers[match], pos + match * 1000])
+            let score = 1000 * match + 2 * len(action) + pos
+
+            call add(lines, [line . markers[match], score])
         endif
     endfor
 
