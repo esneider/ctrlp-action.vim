@@ -2,7 +2,7 @@
 
 ## What?
 
-`ctrlp-recipes` exposes common commands and use cases in natural
+`recipes` exposes common commands and use cases in natural
 language.
 
 Never again lose time and focus in googling commands you'll

@@ -44,8 +44,13 @@ function! recipes#ctrlp#accept(mode, choice)
 
     let choice = substitute(a:choice, g:recipes_mrk_ptr, '', '')
     let action = g:recipes_cmds[choice]
-    let cmd    = a:mode == 'v' ? action.help : action.keycode
-    let type   = stridx(':/?', cmd[0]) == -1 ? '@' : cmd[0]
+    let cmd    = {
+    \   'v':      ':' . action.help,
+    \   't':  ':tab ' . action.help,
+    \   'h': ':vert ' . action.help,
+    \   'e': action.keycode
+    \ }[a:mode]
+    let type = stridx(':/?', cmd[0]) == -1 ? '@' : cmd[0]
 
     call feedkeys(cmd)
     call histadd(type, type == '@' ? cmd : cmd[1:])

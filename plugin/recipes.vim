@@ -57,7 +57,7 @@ function! s:add(bang, cmd, action, help)
     let kcodes = substitute(a:cmd, kcode, '\=eval("\"\\".submatch(0)."\"")', '')
 
     " Create help command
-    let help = substitute(a:help, '\(.\)', ":help \\1\<CR>", '')
+    let help = substitute(a:help, '\(.\)', "help \\1\<CR>", '')
 
     call add(g:recipes_list, cmd)
     let g:recipes_cmds[cmd] = {'keycode': kcodes, 'help': a:help}
