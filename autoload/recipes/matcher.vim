@@ -73,9 +73,9 @@ endf
 " Public
 """"""""
 
-" 0. We match the pattern exactly, and append a \u2060 character.
-" 1. We match by word beginnings, and append a \u2061 character.
-" 2. We match any increasing subsequence and append a \u2062.
+" 0. We match the pattern exactly, and append g:recipes_markers[0].
+" 1. We match by word beginnings, and append g:recipes_markers[1].
+" 2. We match any increasing subsequence and append g:recipes_markers[2].
 function! recipes#matcher#match(lines, input, limit, mmode, ispath, crfile, regex)
 
     let lines   = []

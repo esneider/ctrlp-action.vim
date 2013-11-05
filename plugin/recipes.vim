@@ -22,6 +22,11 @@ let g:recipes_mrk_ptr = '\V\(' . join(g:recipes_markers, '\|') . '\)\$'
 let g:recipes_list    = []
 let g:recipes_cmds    = {}
 
+let s:recipe_err  = "Invalid Recipe. Should be: Recipe 'command' 'description' ['help_tag']"
+let s:section_err = "Invalid RecipeSection. Should be: RecipeSection ['section']"
+let s:no_help_err = "Sorry, no help for this recipe"
+let s:no_help_err = 'echo "' . s:no_help_err . '"'
+
 """""""
 " Utils
 """""""
@@ -51,13 +56,14 @@ function! s:add(bang, cmd, action, help)
 
     " Pretty print
     let len = s:cmd_len + len(cmd) - len
-    let cmd = printf("%*s\t%s%s", len, cmd, section, substitute(a:action, '\s*$', '', ''))
+    let rcp = substitute(a:action, '\s*$', '', '')
+    let cmd = printf("%*s\t%s%s", len, cmd, section, rcp)
 
     " Transform literal keycodes
     let kcodes = substitute(a:cmd, kcode, '\=eval("\"\\".submatch(0)."\"")', '')
 
     " Create help command
-    let help = empty(a:help) ? '' : 'help ' . a:help . "\<CR>"
+    let help = (empty(a:help) ? s:no_help_err : 'help ' . a:help) . "\<CR>"
 
     call add(g:recipes_list, cmd)
     let g:recipes_cmds[cmd] = {'keycode': kcodes, 'help': help}
@@ -77,7 +83,7 @@ function! recipes#add(sfile, bang, args)
     call substitute(a:args, s:arg_pat, '\=add(args, eval(submatch(0)))', 'g')
 
     if match(args, '^\s*$') >= 0 || len(args) / 2 != 1
-        echoerr "Invalid Recipe. Should be: Recipe 'command' 'description' ['help_tag']"
+        echoerr s:recipe_err
         return
     endif
 
@@ -98,7 +104,7 @@ function! recipes#section(sfile, args)
 
     " Check input format
     if args !~ '\v\s*^(' . s:arg_pat . ')?\s*$'
-        echoerr "Invalid RecipeSection. Should be: RecipeSection ['section']"
+        echoerr s:section_err
         return
     endif
 
@@ -111,5 +117,8 @@ endf
 " Commands
 """"""""""
 
-command! -nargs=+ -bang Recipe  call recipes#add(expand('<sfile>'), '!' == '<bang>', <q-args>)
-command! -nargs=? RecipeSection call recipes#section(expand('<sfile>'), <q-args>)
+command! -nargs=+ -bang Recipe
+            \   call recipes#add(expand('<sfile>'), '!' == '<bang>', <q-args>)
+
+command! -nargs=? RecipeSection
+            \   call recipes#section(expand('<sfile>'), <q-args>)
