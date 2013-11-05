@@ -45,15 +45,17 @@ function! recipes#ctrlp#accept(mode, choice)
     let choice = substitute(a:choice, g:recipes_mrk_ptr, '', '')
     let action = g:recipes_cmds[choice]
     let cmd    = {
-    \   'v':      ':' . action.help,
-    \   't':  ':tab ' . action.help,
-    \   'h': ':vert ' . action.help,
+    \   'h':      ':bo ' . action.help,
+    \   't':     ':tab ' . action.help,
+    \   'v': ':bo vert ' . action.help,
     \   'e': action.keycode
     \ }[a:mode]
-    let type = stridx(':/?', cmd[0]) == -1 ? '@' : cmd[0]
+
+    let type = cmd =~ '^[:/?]' ? cmd[0] : '@'
+    let hist = cmd !~ '^[:/?]' ? cmd : cmd =~ "\r$" ? cmd[1:-2] : ''
 
     call feedkeys(cmd)
-    call histadd(type, type == '@' ? cmd : cmd[1:])
+    call histadd(type, hist)
 endf
 
 function! recipes#ctrlp#id()
