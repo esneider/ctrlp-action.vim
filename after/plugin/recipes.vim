@@ -11,7 +11,7 @@ RecipeSection " Misc Options
 
 Recipe ':set vb t_vb=<CR>' 'Error Bell: Disable'
 Recipe ':set mouse=a<CR>' 'Mouse: Enable'
-Recipe ':set backspace=2<CR>' 'Backspace: Work in Insert Mode'
+Recipe ':set backspace=2<CR>' 'Backspace: for Insert Mode'
 Recipe ':set laststatus=2<CR>' 'Status Line: Show'
 Recipe ':set t_Co=256<CR>' 'Colors: Force 256 Colors'
 Recipe ':set clipboard=unnamed,unnamedplus<CR>' 'Clipboard: Use System Clipboard'
@@ -58,18 +58,21 @@ Recipe ':e#<CR>' 'Open Last File'
 
 RecipeSection " Search
 
-Recipe 'n' 'Search Results: Next'
-Recipe 'N' 'Search Results: Previous'
 Recipe '/' 'Search'
 Recipe '?' 'Search Backward'
 Recipe '*' 'Search: Current Word'
 Recipe '#' 'Search Backward: Current Word'
-Recipe ':nohlsearch<CR>' 'Search Results: Clear Highlighting'
+
+RecipeSection 'Search Results'
+
+Recipe 'n' 'Next'
+Recipe 'N' 'Previous'
+Recipe ':nohlsearch<CR>' 'Clear Highlighting'
 
 RecipeSection 'Tabs'
 
-Recipe 'gt' 'Next'
-Recipe 'gT' 'Previous'
+Recipe 'gt' 'Next Tab'
+Recipe 'gT' 'Previous Tab'
 Recipe '1gt' 'Go To Tab 1'
 Recipe '2gt' 'Go To Tab 2'
 Recipe '3gt' 'Go To Tab 3'
@@ -79,21 +82,21 @@ Recipe '6gt' 'Go To Tab 6'
 Recipe '7gt' 'Go To Tab 7'
 Recipe '8gt' 'Go To Tab 8'
 Recipe '9gt' 'Go To Tab 9'
-Recipe ':tabnew<CR>' 'New'
+Recipe ':tabnew<CR>' 'New Tab'
 
 RecipeSection 'Fold'
 
-Recipe 'zo' 'Open'
-Recipe 'zc' 'Close'
-Recipe 'za' 'Toggle'
-Recipe 'zR' 'Open All'
-Recipe 'zM' 'Close All'
-Recipe 'zj' 'Next'
-Recipe 'zk' 'Previous'
+Recipe 'zo' 'Open Fold'
+Recipe 'zc' 'Close Fold'
+Recipe 'za' 'Toggle Fold'
+Recipe 'zR' 'Open All Folds'
+Recipe 'zM' 'Close All Fold'
+Recipe 'zj' 'Next Fold'
+Recipe 'zk' 'Previous Fold'
 
 RecipeSection 'Spell Checking'
 
-Recipe 'z=' 'Correct'
+Recipe 'z=' 'Correct Current Word'
 Recipe 'zg' 'Add Current Word To Dictionary'
 
 RecipeSection 'Vim'
@@ -111,15 +114,18 @@ RecipeSection 'History'
 Recipe 'u' 'Undo'
 Recipe '<C-r>' 'Redo'
 
-RecipeSection " Text Edition
+RecipeSection 'Delete'
 
-Recipe 'ggdG' 'Delete Entire File'
-Recipe 'dd' 'Delete Current Line'
-Recipe 'diw' 'Delete Current Word'
-Recipe 'o' 'Insert Line After'
-Recipe 'o' 'Insert Line Below'
-Recipe 'O' 'Insert Line Before'
-Recipe 'O' 'Insert Line Above'
+Recipe 'ggdG' 'Entire File'
+Recipe 'dd' 'Current Line'
+Recipe 'diw' 'Current Word'
+
+RecipeSection 'Insert'
+
+Recipe 'o' 'Line After'
+Recipe 'o' 'Line Below'
+Recipe 'O' 'Line Before'
+Recipe 'O' 'Line Above'
 
 RecipeSection 'Go To'
 

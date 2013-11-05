@@ -24,7 +24,7 @@ viw~  Toggle case of current word
 ## Install
 
 ```vim
-Bundle 'esneider/ctrlp-recipes.vim'
+Bundle 'esneider/recipes.vim'
 ```
 
 
