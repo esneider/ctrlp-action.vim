@@ -70,8 +70,9 @@ endf
 function! recipes#load()
 endf
 
-function! recipes#add(bang, args)
+function! recipes#add(sfile, bang, args)
 
+    " Proce valid args
     let args = []
     call substitute(a:args, s:arg_pat, '\=add(args, eval(submatch(0)))', 'g')
 
@@ -80,15 +81,17 @@ function! recipes#add(bang, args)
         return
     endif
 
-    if s:section.file != expand('%:p')
-        let s:section.file = expand('%:p')
+    " Maintain section
+    if s:section.file != a:sfile
+        let s:section.file = a:sfile
         let s:section.name = ''
     endif
 
+    " Add parsed recipe
     call s:add(a:bang, args[0], args[1], get(args, 2, ''))
 endf
 
-function! recipes#section(args)
+function! recipes#section(sfile, args)
 
     " Remove comments and strip spaces
     let args = substitute(a:args, '\v^\s*("([^"\\]|\\.)*)?\s*$', '', '')
@@ -100,7 +103,7 @@ function! recipes#section(args)
     endif
 
     " Maintain s:section
-    let s:section.file = expand('%:p')
+    let s:section.file = a:sfile
     let s:section.name = empty(args) ? '' : eval(args)
 endf
 
@@ -108,5 +111,5 @@ endf
 " Commands
 """"""""""
 
-command! -nargs=+ -bang Recipe  call recipes#add('!' == '<bang>', <q-args>)
-command! -nargs=? RecipeSection call recipes#section(<q-args>)
+command! -nargs=+ -bang Recipe  call recipes#add(expand('<sfile>'), '!' == '<bang>', <q-args>)
+command! -nargs=? RecipeSection call recipes#section(expand('<sfile>'), <q-args>)

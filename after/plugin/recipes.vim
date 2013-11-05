@@ -59,9 +59,9 @@ Recipe ':e#<CR>' 'Open Last File'
 RecipeSection " Search
 
 Recipe '/' 'Search'
-Recipe '?' 'Search Backward'
+Recipe '?' 'Search Backwards'
 Recipe '*' 'Search: Current Word'
-Recipe '#' 'Search Backward: Current Word'
+Recipe '#' 'Search Backwards: Current Word'
 
 RecipeSection 'Search Results'
 
