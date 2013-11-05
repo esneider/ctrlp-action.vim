@@ -72,12 +72,12 @@ endf
 
 function! recipes#add(sfile, bang, args)
 
-    " Proce valid args
+    " Process valid args
     let args = []
     call substitute(a:args, s:arg_pat, '\=add(args, eval(submatch(0)))', 'g')
 
     if match(args, '^\s*$') >= 0 || len(args) / 2 != 1
-        echoerr "Invalide Recipe. Should be: Recipe 'command' 'description' ['help_tag']"
+        echoerr "Invalid Recipe. Should be: Recipe 'command' 'description' ['help_tag']"
         return
     endif
 

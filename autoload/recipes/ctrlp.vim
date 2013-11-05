@@ -42,6 +42,7 @@ function! recipes#ctrlp#accept(mode, choice)
 
     call ctrlp#exit()
 
+    " Get command
     let choice = substitute(a:choice, g:recipes_mrk_ptr, '', '')
     let action = g:recipes_cmds[choice]
     let cmd    = {
@@ -51,6 +52,7 @@ function! recipes#ctrlp#accept(mode, choice)
     \   'e': action.keycode
     \ }[a:mode]
 
+    " Process command for adding it to the history
     let type = cmd =~ '^[:/?]' ? cmd[0] : '@'
     let hist = cmd !~ '^[:/?]' ? cmd : cmd =~ "\r$" ? cmd[1:-2] : ''
 
