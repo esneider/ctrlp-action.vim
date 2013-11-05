@@ -22,11 +22,6 @@ let g:recipes_mrk_ptr = '\V\(' . join(g:recipes_markers, '\|') . '\)\$'
 let g:recipes_list    = []
 let g:recipes_cmds    = {}
 
-let s:recipe_err  = "Invalid Recipe. Should be: Recipe 'command' 'description' ['help_tag']"
-let s:section_err = "Invalid RecipeSection. Should be: RecipeSection ['section']"
-let s:no_help_err = "Sorry, no help for this recipe"
-let s:no_help_err = 'echo "' . s:no_help_err . '"'
-
 """""""
 " Utils
 """""""
@@ -63,7 +58,9 @@ function! s:add(bang, cmd, action, help)
     let kcodes = substitute(a:cmd, kcode, '\=eval("\"\\".submatch(0)."\"")', '')
 
     " Create help command
-    let help = (empty(a:help) ? s:no_help_err : 'help ' . a:help) . "\<CR>"
+    let help = "Sorry, no help for this recipe"
+    let help = 'echo "' . help . '"' . "\<CR>"
+    let help = empty(a:help) ? help : 'help ' . a:help . "\<CR>"
 
     call add(g:recipes_list, cmd)
     let g:recipes_cmds[cmd] = {'keycode': kcodes, 'help': help}
@@ -76,14 +73,20 @@ endf
 function! recipes#load()
 endf
 
-function! recipes#add(sfile, bang, args)
+function! recipes#add(sfile, sline, bang, args)
 
     " Process valid args
     let args = []
     call substitute(a:args, s:arg_pat, '\=add(args, eval(submatch(0)))', 'g')
 
+    " Check input format
     if match(args, '^\s*$') >= 0 || len(args) / 2 != 1
-        echoerr s:recipe_err
+
+        echomsg 'Invalid Recipe'
+        if !empty(a:sfile) | echomsg 'In ' . a:sfile . ':' . a:sline | endif
+        echomsg '  Recipe' . a:bang . ' ' . a:args
+        echomsg "Should be: Recipe 'command' 'description' ['help_tag']"
+
         return
     endif
 
@@ -94,17 +97,22 @@ function! recipes#add(sfile, bang, args)
     endif
 
     " Add parsed recipe
-    call s:add(a:bang, args[0], args[1], get(args, 2, ''))
+    call s:add('!' == a:bang, args[0], args[1], get(args, 2, ''))
 endf
 
-function! recipes#section(sfile, args)
+function! recipes#section(sfile, sline, args)
 
     " Remove comments and strip spaces
     let args = substitute(a:args, '\v^\s*("([^"\\]|\\.)*)?\s*$', '', '')
 
     " Check input format
     if args !~ '\v\s*^(' . s:arg_pat . ')?\s*$'
-        echoerr s:section_err
+
+        echomsg 'Invalid RecipeSection'
+        if !empty(a:sfile) | echomsg 'In ' . a:sfile . ':' . a:sline | endif
+        echomsg '  RecipeSection ' . a:args
+        echomsg "Should be: RecipeSection ['section']"
+
         return
     endif
 
@@ -118,7 +126,16 @@ endf
 """"""""""
 
 command! -nargs=+ -bang Recipe
-            \   call recipes#add(expand('<sfile>'), '!' == '<bang>', <q-args>)
+\   call recipes#add(
+\       expand('<sfile>:p'),
+\       expand('<slnum>'),
+\       '<bang>',
+\       <q-args>
+\   )
 
 command! -nargs=? RecipeSection
-            \   call recipes#section(expand('<sfile>'), <q-args>)
+\   call recipes#section(
+\       expand('<sfile>:p'),
+\       expand('<slnum>'),
+\       <q-args>
+\   )
