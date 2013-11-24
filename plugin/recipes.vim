@@ -12,11 +12,11 @@ let g:loaded_recipes = 1
 " Vars
 """"""
 
-let s:cr_char = get(g:, 'recipes_cr_char', '↩')
 let s:cmd_len = get(g:, 'recipes_cmd_len', 11)
 let s:section = {'file': '', 'name': ''}
 let s:arg_pat = '\v(' . "'([^']|'')*'" . '|' . '"([^"\]|\.)*"' . ')'
 
+let g:recipes_cr_char = get(g:, 'recipes_cr_char', '↩')
 let g:recipes_markers = ['  ', '. ', ', ']
 let g:recipes_mrk_ptr = '\V\(' . join(g:recipes_markers, '\|') . '\)\$'
 let g:recipes_list    = []
@@ -35,7 +35,7 @@ function! s:add(bang, cmd, action, help)
     let pos   = match(cmd, '\v\c%(\<(Left|Right|Home|End)\>)+$')
 
     " Compress trailing keycodes
-        if enter > 0 | let cmd = substitute(cmd, '<CR>$', s:cr_char, 'i')
+        if enter > 0 | let cmd = substitute(cmd, '<CR>$', g:recipes_cr_char, 'i')
     elseif space > 0 | let cmd = substitute(cmd, '<Space>$', ' ', 'i')
     elseif pos   > 0 | let cmd = cmd[ : (pos - 1) ]
     endif
