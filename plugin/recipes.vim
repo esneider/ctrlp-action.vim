@@ -66,14 +66,7 @@ function! s:add(bang, cmd, action, help)
     let g:recipes_cmds[cmd] = {'keycode': kcodes, 'help': help}
 endf
 
-""""""""
-" Public
-""""""""
-
-function! recipes#load()
-endf
-
-function! recipes#add(sfile, sline, bang, args)
+function! s:add_recipe_cmd(sfile, sline, bang, args)
 
     " Process valid args
     let args = []
@@ -100,7 +93,7 @@ function! recipes#add(sfile, sline, bang, args)
     call s:add('!' == a:bang, args[0], args[1], get(args, 2, ''))
 endf
 
-function! recipes#section(sfile, sline, args)
+function! s:add_section_cmd(sfile, sline, args)
 
     " Remove comments and strip spaces
     let args = substitute(a:args, '\v^\s*("([^"\\]|\\.)*)?\s*$', '', '')
@@ -121,12 +114,15 @@ function! recipes#section(sfile, sline, args)
     let s:section.name = empty(args) ? '' : eval(args)
 endf
 
-""""""""""
-" Commands
-""""""""""
+""""""""
+" Public
+""""""""
+
+function! recipes#load()
+endf
 
 command! -nargs=+ -bang Recipe
-\   call recipes#add(
+\   call s:add_recipe_cmd(
 \       expand('<sfile>:p'),
 \       expand('<slnum>'),
 \       '<bang>',
@@ -134,7 +130,7 @@ command! -nargs=+ -bang Recipe
 \   )
 
 command! -nargs=? RecipeSection
-\   call recipes#section(
+\   call s:add_section_cmd(
 \       expand('<sfile>:p'),
 \       expand('<slnum>'),
 \       <q-args>
