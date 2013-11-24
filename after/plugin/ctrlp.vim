@@ -6,9 +6,9 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 " This is a hack to change the default matcher just for this ctrlp-extension,
-" without changing the global matcher.
-" The only drawback is that when the plugin is opened via another
-" ctrlp-extension, we have to fall-back to the ctrlp file matcher.
+" without changing the global matcher. The only drawback is that when the
+" plugin is opened via another ctrlp mode, we have to fall-back to the ctrlp
+" file matcher.
 function! s:recipes()
 
     let matcher = get(g:, 'ctrlp_match_func', {})

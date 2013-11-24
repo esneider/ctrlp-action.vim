@@ -14,7 +14,6 @@ let g:loaded_recipes = 1
 
 let s:cmd_len = get(g:, 'recipes_cmd_len', 11)
 let s:section = {'file': '', 'name': ''}
-let s:arg_pat = '\v(' . "'([^']|'')*'" . '|' . '"([^"\]|\.)*"' . ')'
 
 let g:recipes_cr_char = get(g:, 'recipes_cr_char', '↩')
 let g:recipes_markers = ['  ', '. ', ', ']
@@ -29,10 +28,10 @@ let g:recipes_cmds    = {}
 function! s:add(bang, cmd, action, help)
 
     let cmd   = a:bang ? '' : a:cmd
-    let kcode = '\v\<(\w|-)+\>'
+    let kcode = '\v\<\w(\w|-)*\w\>'
     let enter = match(cmd, '\c<CR>$')
     let space = match(cmd, '\c\(<Space>\| \)$')
-    let pos   = match(cmd, '\v\c%(\<(Left|Right|Home|End)\>)+$')
+    let pos   = match(cmd, '\c\(<Left>\)\+$')
 
     " Compress trailing keycodes
         if enter > 0 | let cmd = substitute(cmd, '<CR>$', g:recipes_cr_char, 'i')
@@ -46,8 +45,7 @@ function! s:add(bang, cmd, action, help)
     if len > s:cmd_len | let cmd = '' | let len = 0 | endif
 
     " Get section
-    let section  = s:section.name
-    let section .= empty(section) ? '' : ': '
+    let section  = s:section.name =~ '^\s*$' ? '' : s:section.name . ': '
 
     " Pretty print
     let len = s:cmd_len + len(cmd) - len
@@ -66,14 +64,25 @@ function! s:add(bang, cmd, action, help)
     let g:recipes_cmds[cmd] = {'keycode': kcodes, 'help': help}
 endf
 
+function! s:parse_args(args)
+
+    let arg_pat = '\v(' . "'([^']|'')*'" . '|' . '"([^"\]|\.)*"' . ')'
+    let cmd_pat = '\v^(' . arg_pat . '|\s)*' . '("([^"\]|\.)*)?$'
+    let parsed  = []
+
+    if a:args =~ cmd_pat
+        call substitute(a:args, arg_pat, '\=add(parsed, eval(submatch(0)))', 'g')
+    endif
+
+    return parsed
+endf
+
 function! s:add_recipe_cmd(sfile, sline, bang, args)
 
-    " Process valid args
-    let args = []
-    call substitute(a:args, s:arg_pat, '\=add(args, eval(submatch(0)))', 'g')
+    " Parse ans check args
+    let parsed = s:parse_args(a:args)
 
-    " Check input format
-    if match(args, '^\s*$') >= 0 || len(args) / 2 != 1
+    if len(parsed) > 3 || len(parsed) < 2 || parsed[1] =~ '^\s*$'
 
         echomsg 'Invalid Recipe'
         if !empty(a:sfile) | echomsg 'In ' . a:sfile . ':' . a:sline | endif
@@ -90,16 +99,15 @@ function! s:add_recipe_cmd(sfile, sline, bang, args)
     endif
 
     " Add parsed recipe
-    call s:add('!' == a:bang, args[0], args[1], get(args, 2, ''))
+    call s:add('!' == a:bang, parsed[0], parsed[1], get(parsed, 2, ''))
 endf
 
 function! s:add_section_cmd(sfile, sline, args)
 
-    " Remove comments and strip spaces
-    let args = substitute(a:args, '\v^\s*("([^"\\]|\\.)*)?\s*$', '', '')
+    " Parse ans check args
+    let parsed = s:parse_args(a:args)
 
-    " Check input format
-    if args !~ '\v\s*^(' . s:arg_pat . ')?\s*$'
+    if len(parsed) > 1
 
         echomsg 'Invalid RecipeSection'
         if !empty(a:sfile) | echomsg 'In ' . a:sfile . ':' . a:sline | endif
@@ -111,7 +119,7 @@ function! s:add_section_cmd(sfile, sline, args)
 
     " Maintain s:section
     let s:section.file = a:sfile
-    let s:section.name = empty(args) ? '' : eval(args)
+    let s:section.name = get(parsed, 0, '')
 endf
 
 """"""""

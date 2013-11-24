@@ -2,13 +2,13 @@ if exists('b:current_syntax')
     finish
 endif
 
-syntax match recipesBody     '\v^\S.*$'             transparent contains=recipesCommand,recipesAction
-syntax match recipesAction   '\v\t.*$'                contained contains=recipesCategory,recipesMarker
-syntax match recipesCommand  '\v^\S[^\t]*'            contained contains=recipesCmdLine,recipesKeycode,recipesSpace,recipesCR
-syntax match recipesCmdLine  '\v^\>'                  contained contains=NONE
-syntax match recipesKeycode  '\v\c\<([CSATM]-)*\w+\>' contained contains=recipesCR
-syntax match recipesSpace    '\v\S\zs \ze\t'          contained contains=NONE
-syntax match recipesCategory '\v[^:]*:'               contained contains=NONE
+syntax match recipesBody     '\v^\S.*$'        transparent contains=recipesCommand,recipesAction
+syntax match recipesAction   '\v\t.*$'           contained contains=recipesCategory,recipesMarker
+syntax match recipesCommand  '\v^\S[^\t]*'       contained contains=recipesCmdLine,recipesKeycode,recipesSpace,recipesCR
+syntax match recipesCmdLine  '\v^\>'             contained contains=NONE
+syntax match recipesKeycode  '\v\<\w(\w|-)*\w\>' contained contains=NONE
+syntax match recipesSpace    '\v\S\zs \ze\t'     contained contains=NONE
+syntax match recipesCategory '\v[^:]*:'          contained contains=NONE
 
 let recipesCR  = 'syntax match recipesCR ''\v'
 let recipesCR .= g:recipes_cr_char

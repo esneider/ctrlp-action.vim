@@ -52,7 +52,7 @@ function! recipes#ctrlp#accept(mode, choice)
     \   'e': action.keycode
     \ }[a:mode]
 
-    " Process command for adding it to the history
+    " Process command to add it to the history
     let type = cmd =~ '^[:/?]' ? cmd[0] : '@'
     let hist = cmd !~ '^[:/?]' ? cmd : cmd =~ "\r$" ? cmd[1:-2] : ''
 
