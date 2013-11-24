@@ -73,20 +73,20 @@ endf
 " Public
 """"""""
 
-" 0. We match the pattern exactly, and append g:recipes_markers[0].
-" 1. We match by word beginnings, and append g:recipes_markers[1].
-" 2. We match any increasing subsequence and append g:recipes_markers[2].
+" 0. We match the pattern exactly, and append g:recipes_opts.markers[0].
+" 1. We match by word beginnings, and append g:recipes_opts.markers[1].
+" 2. We match any increasing subsequence and append g:recipes_opts.markers[2].
 function! recipes#matcher#match(lines, input, limit, mmode, ispath, crfile, regex)
 
     let lines   = []
-    let markers = g:recipes_markers
+    let markers = g:recipes_opts.markers
     let letters = split(a:input, '\zs')
     let words   = split(a:input, '\s')
     let start   = '\V' . (&scs && a:input =~ '\u' ? '\C' : '\c')
 
     for line in a:lines
-⁠
-        let line   = substitute(line, g:recipes_mrk_ptr, '', '')
+
+        let line   = substitute(line, g:recipes_opts.mrk_ptr, '', '')
         let action = split(line, '\t')[1]
         let gaps   = s:matchlist(start, letters, '', action)
 

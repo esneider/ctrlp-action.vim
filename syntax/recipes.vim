@@ -11,12 +11,12 @@ syntax match recipesSpace    '\v\S\zs \ze\t'     contained contains=NONE
 syntax match recipesCategory '\v[^:]*:'          contained contains=NONE
 
 let recipesCR  = 'syntax match recipesCR ''\v'
-let recipesCR .= g:recipes_cr_char
+let recipesCR .= g:recipes_opts.cr_char
 let recipesCR .= '\ze\t'' contained contains=NONE'
 execute recipesCR
 
 let recipesMarker  = 'syntax match recipesMarker '''
-let recipesMarker .= g:recipes_mrk_ptr
+let recipesMarker .= g:recipes_opts.mrk_ptr
 let recipesMarker .= ''' contained contains=NONE'
 execute recipesMarker
 

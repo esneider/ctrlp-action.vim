@@ -35,7 +35,7 @@ function! recipes#ctrlp#init()
     setlocal filetype=recipes.vim encoding=utf-8 scrolloff=0 nolist
     setlocal noexpandtab shiftwidth=4 tabstop=4 softtabstop=4 cursorline
 
-    return g:recipes_list
+    return g:recipes_opts.cmd_list
 endf
 
 function! recipes#ctrlp#accept(mode, choice)
@@ -43,8 +43,8 @@ function! recipes#ctrlp#accept(mode, choice)
     call ctrlp#exit()
 
     " Get command
-    let choice = substitute(a:choice, g:recipes_mrk_ptr, '', '')
-    let action = g:recipes_cmds[choice]
+    let choice = substitute(a:choice, g:recipes_opts.mrk_ptr, '', '')
+    let action = g:recipes_opts.cmd_dict[choice]
     let cmd    = {
     \   'h':      ':bo ' . action.help,
     \   't':     ':tab ' . action.help,
@@ -56,8 +56,8 @@ function! recipes#ctrlp#accept(mode, choice)
     let type = cmd =~ '^[:/?]' ? cmd[0] : '@'
     let hist = cmd !~ '^[:/?]' ? cmd : cmd =~ "\r$" ? cmd[1:-2] : ''
 
-    call feedkeys(cmd)
     call histadd(type, hist)
+    call feedkeys(cmd)
 endf
 
 function! recipes#ctrlp#id()

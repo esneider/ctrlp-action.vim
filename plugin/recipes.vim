@@ -12,14 +12,27 @@ let g:loaded_recipes = 1
 " Vars
 """"""
 
-let s:cmd_len = get(g:, 'recipes_cmd_len', 11)
+" Global data
+let g:recipes_opts = {
+\
+\   'cmd_len': get(g:, 'recipes_cmd_len', 11),
+\   'cr_char': get(g:, 'recipes_cr_char', '↩'),
+\   'markers': ['  ', '. ', ', '],
+\   'cmd_list': [],
+\   'cmd_dict': {}
+\}
+
+let s:opts = g:recipes_opts
+let s:opts.mrk_ptr = '\V\(' . join(s:opts.markers, '\|') . '\)\$'
+
+" Current file and section name
 let s:section = {'file': '', 'name': ''}
 
-let g:recipes_cr_char = get(g:, 'recipes_cr_char', '↩')
-let g:recipes_markers = ['  ', '. ', ', ']
-let g:recipes_mrk_ptr = '\V\(' . join(g:recipes_markers, '\|') . '\)\$'
-let g:recipes_list    = []
-let g:recipes_cmds    = {}
+" Correct command usage
+let s:usage = {
+\   'Recipe': "Recipe 'command' 'description' ['help_tag']",
+\   'RecipeSection': "RecipeSection ['section']"
+\}
 
 """""""
 " Utils
@@ -34,7 +47,7 @@ function! s:add(bang, cmd, action, help)
     let pos   = match(cmd, '\c\(<Left>\)\+$')
 
     " Compress trailing keycodes
-        if enter > 0 | let cmd = substitute(cmd, '<CR>$', g:recipes_cr_char, 'i')
+        if enter > 0 | let cmd = substitute(cmd, '<CR>$', s:opts.cr_char, 'i')
     elseif space > 0 | let cmd = substitute(cmd, '<Space>$', ' ', 'i')
     elseif pos   > 0 | let cmd = cmd[ : (pos - 1) ]
     endif
@@ -42,13 +55,13 @@ function! s:add(bang, cmd, action, help)
     " Real command length
     let len = len(split(cmd, '\zs')) - (space > 0 || enter > 0)
     " Clear long commands
-    if len > s:cmd_len | let cmd = '' | let len = 0 | endif
+    if len > s:opts.cmd_len | let cmd = '' | let len = 0 | endif
 
     " Get section
-    let section  = s:section.name =~ '^\s*$' ? '' : s:section.name . ': '
+    let section = s:section.name =~ '^\s*$' ? '' : s:section.name . ': '
 
     " Pretty print
-    let len = s:cmd_len + len(cmd) - len
+    let len = s:opts.cmd_len + len(cmd) - len
     let rcp = substitute(a:action, '\s*$', '', '')
     let cmd = printf("%*s\t%s%s", len, cmd, section, rcp)
 
@@ -60,8 +73,8 @@ function! s:add(bang, cmd, action, help)
     let help = 'echo "' . help . '"' . "\<CR>"
     let help = empty(a:help) ? help : 'help ' . a:help . "\<CR>"
 
-    call add(g:recipes_list, cmd)
-    let g:recipes_cmds[cmd] = {'keycode': kcodes, 'help': help}
+    call add(s:opts.cmd_list, cmd)
+    let s:opts.cmd_dict[cmd] = {'keycode': kcodes, 'help': help}
 endf
 
 function! s:parse_args(args)
@@ -77,18 +90,25 @@ function! s:parse_args(args)
     return parsed
 endf
 
+function! s:invalid_call(cmd, sfile, sline, bang, args)
+
+    echomsg 'Invalid ' . a:cmd
+
+    if !empty(a:sfile)
+        echomsg 'In ' . a:sfile . ':' . a:sline
+    endif
+
+    echomsg '  ' . a:cmd . a:bang . ' ' . a:args
+    echomsg 'Should be: ' . s:usage[a:cmd]
+endf
+
 function! s:add_recipe_cmd(sfile, sline, bang, args)
 
     " Parse ans check args
     let parsed = s:parse_args(a:args)
 
     if len(parsed) > 3 || len(parsed) < 2 || parsed[1] =~ '^\s*$'
-
-        echomsg 'Invalid Recipe'
-        if !empty(a:sfile) | echomsg 'In ' . a:sfile . ':' . a:sline | endif
-        echomsg '  Recipe' . a:bang . ' ' . a:args
-        echomsg "Should be: Recipe 'command' 'description' ['help_tag']"
-
+        call s:invalid_call('Recipe', a:sfile, a:sline, a:bang, a:args)
         return
     endif
 
@@ -108,16 +128,11 @@ function! s:add_section_cmd(sfile, sline, args)
     let parsed = s:parse_args(a:args)
 
     if len(parsed) > 1
-
-        echomsg 'Invalid RecipeSection'
-        if !empty(a:sfile) | echomsg 'In ' . a:sfile . ':' . a:sline | endif
-        echomsg '  RecipeSection ' . a:args
-        echomsg "Should be: RecipeSection ['section']"
-
+        call s:invalid_call('RecipeSection', a:sfile, a:sline, '', a:args)
         return
     endif
 
-    " Maintain s:section
+    " Maintain section
     let s:section.file = a:sfile
     let s:section.name = get(parsed, 0, '')
 endf
