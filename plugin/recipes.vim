@@ -4,14 +4,12 @@ endif
 
 let g:loaded_recipes = 1
 let g:recipes_opts   = {
-\
 \   'cmd_len': get(g:, 'recipes_cmd_len', 11),
 \   'cr_char': get(g:, 'recipes_cr_char', '↩'),
 \   'markers': ['  ', '. ', ', '],
 \   'cmd_list': [],
 \   'cmd_dict': {},
 \}
-
 let g:recipes_opts.mrk_ptr = '\V\(' . join(g:recipes_opts.markers, '\|') . '\)\$'
 
 function! recipes#load()
