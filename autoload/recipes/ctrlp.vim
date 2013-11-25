@@ -1,18 +1,8 @@
-""""""""""""
-" Load guard
-""""""""""""
-
-if exists('g:loaded_recipes_ctrlp') && g:loaded_recipes_ctrlp
-    finish
-endif
-
-let g:loaded_recipes_ctrlp = 1
-
-call recipes#load()
-
 """"""
 " Vars
 """"""
+
+call recipes#load()
 
 call add(g:ctrlp_ext_vars, {
 \   'init': 'recipes#ctrlp#init()',
@@ -62,8 +52,18 @@ function! recipes#ctrlp#accept(mode, choice)
     call feedkeys(cmd)
 endf
 
-function! recipes#ctrlp#id()
+function! recipes#ctrlp#open()
 
-    return s:id
+    " This is a hack to change the default matcher just for this
+    " ctrlp-extension, without changing the global matcher. The only drawback
+    " is that when the plugin is opened via another ctrlp mode, we have to
+    " fall back to the ctrlp file matcher.
+
+    let matcher = get(g:, 'ctrlp_match_func', {})
+    let g:ctrlp_match_func = {'match': 'recipes#matcher#match'}
+
+    call ctrlp#init(s:id)
+
+    let g:ctrlp_match_func = matcher
 endf
 

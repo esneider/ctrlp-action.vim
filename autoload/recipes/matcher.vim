@@ -1,13 +1,3 @@
-""""""""""""
-" Load guard
-""""""""""""
-
-if exists('g:loaded_recipes_matcher') && g:loaded_recipes_matcher
-    finish
-endif
-
-let g:loaded_recipes_matcher = 1
-
 """""""
 " Utils
 """""""

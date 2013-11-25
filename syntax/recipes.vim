@@ -32,3 +32,4 @@ highlight link recipesCmdLine recipesInvisible
 highlight link recipesMarker  recipesInvisible
 
 let b:current_syntax = "recipes.vim"
+
