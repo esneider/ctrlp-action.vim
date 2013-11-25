@@ -1,20 +1,20 @@
 
 RecipeSection " Toggle Options
 
-Recipe ':set wrap!<CR>' 'Word Wrap: Toggle'
-Recipe ':set spell!<CR>' 'Spell Checking: Toggle'
+Recipe ':set wrap!<CR>' 'Enable Word Wrap: Toggle'
+Recipe ':set spell!<CR>' 'Enable Spell Checking: Toggle'
 Recipe ':set list!<CR>' 'Show Invisible Characters: Toggle'
-Recipe ':set number!<CR>' 'Line Numbers: Toggle'
+Recipe ':set number!<CR>' 'Show Line Numbers: Toggle'
 Recipe ':set cursorline!<CR>' 'Show Cursor Line: Toggle'
 
 RecipeSection " Misc Options
 
 Recipe ':set vb t_vb=<CR>' 'Error Bell: Disable'
-Recipe ':set mouse=a<CR>' 'Mouse: Enable'
-Recipe ':set backspace=2<CR>' 'Backspace: for Insert Mode'
-Recipe ':set laststatus=2<CR>' 'Status Line: Show'
-Recipe ':set t_Co=256<CR>' 'Colors: Force 256 Colors'
-Recipe ':set clipboard=unnamed,unnamedplus<CR>' 'Clipboard: Use System Clipboard'
+Recipe ':set mouse=a<CR>' 'Use Mouse: Enable'
+Recipe ':set backspace=2<CR>' 'Backspace in Insert Mode'
+Recipe ':set laststatus=2<CR>' 'Show Status Line'
+Recipe ':set t_Co=256<CR>' 'Force 256 Colors'
+Recipe ':set clipboard=unnamed,unnamedplus<CR>' 'Use System Clipboard'
 
 RecipeSection 'Indentation'
 
