@@ -42,3 +42,4 @@ We recommend using Ctrl+Shift+P as a binding
 You can define your own _recipes_ by declaring a `g:ctrlp_recipes` array of strings. Each of these strings should be in the form of `<command>\t<description>`.
 
     let g:action_list = ["gg	Go to the beginning of the buffer"]
+

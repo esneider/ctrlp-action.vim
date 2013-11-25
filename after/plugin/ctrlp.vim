@@ -21,3 +21,4 @@ command! CtrlPRecipes call s:recipes()
 
 let &cpo = s:save_cpo
 unlet s:save_cpo
+

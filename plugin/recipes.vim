@@ -19,7 +19,7 @@ let g:recipes_opts = {
 \   'cr_char': get(g:, 'recipes_cr_char', '↩'),
 \   'markers': ['  ', '. ', ', '],
 \   'cmd_list': [],
-\   'cmd_dict': {}
+\   'cmd_dict': {},
 \}
 
 let s:opts = g:recipes_opts
@@ -31,7 +31,7 @@ let s:section = {'file': '', 'name': ''}
 " Correct command usage
 let s:usage = {
 \   'Recipe': "Recipe 'command' 'description' ['help_tag']",
-\   'RecipeSection': "RecipeSection ['section']"
+\   'RecipeSection': "RecipeSection ['section']",
 \}
 
 """""""
@@ -145,16 +145,8 @@ function! recipes#load()
 endf
 
 command! -nargs=+ -bang Recipe
-\   call s:add_recipe_cmd(
-\       expand('<sfile>:p'),
-\       expand('<slnum>'),
-\       '<bang>',
-\       <q-args>
-\   )
+\   call s:add_recipe_cmd(expand('<sfile>:p'), expand('<slnum>'), '<bang>', <q-args>)
 
 command! -nargs=? RecipeSection
-\   call s:add_section_cmd(
-\       expand('<sfile>:p'),
-\       expand('<slnum>'),
-\       <q-args>
-\   )
+\   call s:add_section_cmd(expand('<sfile>:p'), expand('<slnum>'), <q-args>)
+

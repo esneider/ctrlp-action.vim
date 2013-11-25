@@ -119,3 +119,4 @@ function! recipes#matcher#match(lines, input, limit, mmode, ispath, crfile, rege
 
     return map(lines, 'v:val[0]')
 endf
+

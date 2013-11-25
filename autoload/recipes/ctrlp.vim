@@ -22,6 +22,8 @@ call add(g:ctrlp_ext_vars, {
 \   'type': 'path',
 \   'sort': 0,
 \   'nolim': 1,
+\   'specinput': 0,
+\   'sanstail': 0,
 \})
 
 let s:id = g:ctrlp_builtins + len(g:ctrlp_ext_vars)
@@ -64,3 +66,4 @@ function! recipes#ctrlp#id()
 
     return s:id
 endf
+
