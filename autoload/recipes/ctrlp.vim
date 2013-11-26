@@ -48,8 +48,11 @@ function! recipes#ctrlp#accept(mode, choice)
     let type = cmd =~ '^[:/?]' ? cmd[0] : '@'
     let hist = cmd !~ '^[:/?]' ? cmd : cmd =~ "\r$" ? cmd[1:-2] : ''
 
+    " If the recipe command had a bang, allow user mappings
+    let mode = action.bang ? 'm' : 'n'
+
     call histadd(type, hist)
-    call feedkeys(cmd)
+    call feedkeys(cmd, mode)
 endf
 
 function! recipes#ctrlp#open()

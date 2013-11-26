@@ -90,7 +90,7 @@ Recipe 'zo' 'Open Fold'
 Recipe 'zc' 'Close Fold'
 Recipe 'za' 'Toggle Fold'
 Recipe 'zR' 'Open All Folds'
-Recipe 'zM' 'Close All Fold'
+Recipe 'zM' 'Close All Folds'
 Recipe 'zj' 'Next Fold'
 Recipe 'zk' 'Previous Fold'
 
@@ -141,4 +141,8 @@ Recipe '}' 'Next Paragraph'
 Recipe '{' 'Previous Paragraph'
 Recipe '^' 'Beginning Of Line'
 Recipe '$' 'End Of Line'
+
+RecipeSection 'Search and Go To'
+
+Recipe '//e<Left><Left>' 'End Of Match'
 

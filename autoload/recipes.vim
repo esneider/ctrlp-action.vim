@@ -19,11 +19,11 @@ let s:usage = {
 
 function! s:add_recipe(bang, cmd, action, help)
 
-    let cmd   = a:bang ? '' : a:cmd
+    let cmd   = a:cmd
     let kcode = '\v\<\w(\w|-)*\w\>'
     let enter = match(cmd, '\c<CR>$')
     let space = match(cmd, '\c\(<Space>\| \)$')
-    let pos   = match(cmd, '\c\(<Left>\)\+$')
+    let pos   = match(cmd, '\v\c%(\<(Left|Right|Home|End)\>)+$')
 
     " Compress trailing keycodes
         if enter > 0 | let cmd = substitute(cmd, '<CR>$', s:opts.cr_char, 'i')
@@ -45,7 +45,7 @@ function! s:add_recipe(bang, cmd, action, help)
     let cmd = printf("%*s\t%s%s", len, cmd, section, rcp)
 
     " Transform literal keycodes
-    let kcodes = substitute(a:cmd, kcode, '\=eval("\"\\".submatch(0)."\"")', '')
+    let kcodes = substitute(a:cmd, kcode, '\=eval("\"\\".submatch(0)."\"")', 'g')
 
     " Create help command
     let help = "Sorry, no help for this recipe"
@@ -53,7 +53,7 @@ function! s:add_recipe(bang, cmd, action, help)
     let help = empty(a:help) ? help : 'help ' . a:help . "\<CR>"
 
     call add(s:opts.cmd_list, cmd)
-    let s:opts.cmd_dict[cmd] = {'keycode': kcodes, 'help': help}
+    let s:opts.cmd_dict[cmd] = {'keycode': kcodes, 'help': help, 'bang': a:bang}
 endf
 
 function! s:parse_args(args)
