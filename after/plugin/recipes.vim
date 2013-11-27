@@ -1,32 +1,32 @@
 
 RecipeSection " Toggle Options
 
-Recipe ':set wrap!<CR>' 'Enable Word Wrap: Toggle'
-Recipe ':set spell!<CR>' 'Enable Spell Checking: Toggle'
-Recipe ':set list!<CR>' 'Show Invisible Characters: Toggle'
-Recipe ':set number!<CR>' 'Show Line Numbers: Toggle'
-Recipe ':set cursorline!<CR>' 'Show Cursor Line: Toggle'
+Recipe ':set wrap!<CR>'  'Enable Word Wrap: Toggle'  "'wrap'"
+Recipe ':set spell!<CR>'  'Enable Spell Checking: Toggle'  "'spell'"
+Recipe ':set list!<CR>'  'Show Invisible Characters: Toggle'  "'list'"
+Recipe ':set nu!<CR>'  'Show Line Numbers: Toggle'  "'number'"
+Recipe ':set cul!<CR>'  'Show Cursor Line: Toggle'  "'cursorline'"
 
 RecipeSection " Misc Options
 
-Recipe ':set vb t_vb=<CR>' 'Error Bell: Disable'
-Recipe ':set mouse=a<CR>' 'Use Mouse: Enable'
-Recipe ':set backspace=2<CR>' 'Backspace in Insert Mode'
-Recipe ':set laststatus=2<CR>' 'Show Status Line'
-Recipe ':set t_Co=256<CR>' 'Force 256 Colors'
-Recipe ':set clipboard=unnamed,unnamedplus<CR>' 'Use System Clipboard'
+Recipe ':set vb t_vb=<CR>'  'Error Bell: Disable'  "'visualbell'"
+Recipe ':set mouse=a<CR>'  'Use Mouse: Enable'  "'mouse'"
+Recipe ':set bs=2<CR>'  'Backspace in Insert Mode'  "'backspace'"
+Recipe ':set ls=2<CR>'  'Show Status Line'  "'laststatus'"
+Recipe ':set t_Co=256<CR>'  'Force 256 Colors'  "'t_Co'"
+Recipe ':set cb=unnamed,unnamedplus<CR>'  'Use System Clipboard'  "'clipboard'"
 
 RecipeSection 'Indentation'
 
-Recipe ':set expandtab<CR>' 'Use Tabs'
-Recipe ':set noexpandtab<CR>' 'Use Spaces'
-Recipe ':retab<CR>' 'Reindent'
+Recipe ':set et<CR>'  'Use Tabs'  "'expandtab'"
+Recipe ':set noet<CR>'  'Use Spaces'  "'noexpandtab'"
+Recipe ':retab<CR>'  'Fix mixed case'  ':retab'
 
 RecipeSection 'Encoding'
 
-Recipe ':set encoding=utf-8<CR>' 'utf-8'
-Recipe ':set encoding=utf-16<CR>' 'utf-16'
-Recipe ':set encoding=latin1<CR>' 'latin1'
+Recipe ':set enc=utf-8<CR>'  'utf-8'  "'encoding'"
+Recipe ':set enc=utf-16<CR>' 'utf-16' "'encoding'"
+Recipe ':set enc=latin1<CR>' 'latin1' "'encoding'"
 
 RecipeSection 'Convert Case'
 

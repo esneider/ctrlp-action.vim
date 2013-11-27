@@ -58,8 +58,8 @@ endf
 
 function! s:parse_args(args)
 
-    let arg_pat = '\v(' . "'([^']|'')*'" . '|' . '"([^"\]|\.)*"' . ')'
-    let cmd_pat = '\v^(' . arg_pat . '|\s)*' . '("([^"\]|\.)*)?$'
+    let arg_pat = '\v(' . "'([^']|'')*'" . '|' . '"([^"\\]|\\.)*"' . ')'
+    let cmd_pat = '\v^(' . arg_pat . '|\s)*' . '("([^"\\]|\\.)*)?$'
     let parsed  = []
 
     if a:args =~ cmd_pat
