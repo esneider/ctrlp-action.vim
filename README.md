@@ -16,12 +16,13 @@ You can fuzzy search for a recipe description and execute it, while learning
 the command for it and being able to open related help.
 
 Running `:CtrlPRecipes` will open the recipe browser. Once there, you can type:
-* **any text**, to refine the search.
+* **any text**, to narrow down the search.
 * **enter**, to execute the selected recipe.
 * **escape**, to close the recipe browser.
-* **up and down arrows**, to move through the matching recipes.
-* **ctrl-t, ctrl-v and ctrl-h**, to open the related help section for the
-  selected recipe (in a new tab, vertical or horizontal split, respectively).
+* **up** and **down arrows**, to move through the matching recipes.
+* **ctrl-t**, **ctrl-v** and **ctrl-h**, to open the related help section for
+  the selected recipe (in a new tab, vertical or horizontal split,
+  respectively).
 
 ## Install
 
