@@ -1,13 +1,24 @@
+" File:
+"   recipes.vim
+"
+" Provide helpers for the commands for adding recipes and recipes sections.
+" If the command parsing fails, an appropiate message is shown. Else, the
+" arguments are processed and added to the relevant data structures:
+"
+"   g:recipes_opts.cmd_list: list of lines for the recipe browser.
+"   g:recipes_opts.cmd_dict: information for each line of the list.
+
 """"""
 " Vars
 """"""
 
+" Global plugin variables.
 let s:opts = g:recipes_opts
 
-" Current file and section name
+" Current file and section name.
 let s:section = {'file': '', 'name': ''}
 
-" Correct command usage
+" Correct command usage.
 let s:usage = {
 \   'Recipe': "Recipe 'command' 'description' ['help_tag']",
 \   'RecipeSection': "RecipeSection ['section']",
@@ -17,6 +28,13 @@ let s:usage = {
 " Utils
 """""""
 
+" Preprocess recipe for later usage.
+"
+" Arguments:
+"   bang: boolean, wheter the command had the ! modifier.
+"   cmd: string, recipe keycodes.
+"   action: string, recipe description.
+"   help: string, recipe help command.
 function! s:add_recipe(bang, cmd, action, help)
 
     let cmd   = a:cmd
@@ -56,6 +74,12 @@ function! s:add_recipe(bang, cmd, action, help)
     let s:opts.cmd_dict[cmd] = {'keycode': kcodes, 'help': help, 'bang': a:bang}
 endf
 
+" Tokenize the arguments string.
+"
+" Args:
+"   args: string, raw copy of the arguments.
+" Returns:
+"   string[], a list of tokens.
 function! s:parse_args(args)
 
     let arg_pat = '\v(' . "'([^']|'')*'" . '|' . '"([^"\\]|\\.)*"' . ')'
@@ -69,6 +93,14 @@ function! s:parse_args(args)
     return parsed
 endf
 
+" Show message after an invalid command call.
+"
+" Args:
+"   cmd: string, command name.
+"   sfile: string, current file path.
+"   sline: number, current line.
+"   bang: string, '!' if the command had the ! modifier.
+"   args: string, raw copy of the arguments.
 function! s:invalid_call(cmd, sfile, sline, bang, args)
 
     echomsg 'Invalid ' . a:cmd
@@ -85,6 +117,13 @@ endf
 " Public
 """"""""
 
+" Command to add a new recipe.
+"
+" Args:
+"   sfile: string, current file path.
+"   sline: number, current line.
+"   bang: string, '!' if the command had the ! modifier.
+"   args: string, raw copy of the arguments.
 function! recipes#add_recipe(sfile, sline, bang, args)
 
     " Parse ans check args
@@ -105,6 +144,12 @@ function! recipes#add_recipe(sfile, sline, bang, args)
     call s:add_recipe('!' == a:bang, parsed[0], parsed[1], get(parsed, 2, ''))
 endf
 
+" Command to add a new recipe section.
+"
+" Args:
+"   sfile: string, current file path.
+"   sline: number, current line.
+"   args: string, raw copy of the arguments.
 function! recipes#add_section(sfile, sline, args)
 
     " Parse ans check args

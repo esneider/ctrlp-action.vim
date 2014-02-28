@@ -8,7 +8,7 @@ learning process?
 Recipes.vim will let you explore common actions (recipes) you might want to do
 in Vim, specially while editing code.
 
-![](http://i.imgur.com/UivnA3M.png)
+![](http://i.imgur.com/dIvD9Uh.png)
 
 ## How?
 
