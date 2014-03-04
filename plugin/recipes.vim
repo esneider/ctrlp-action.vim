@@ -15,8 +15,8 @@ let g:recipes_opts   = {
 \   'cmd_len': get(g:, 'recipes_cmd_len', 11),
 \   'cr_char': get(g:, 'recipes_cr_char', '↩'),
 \   'markers': ['  ', '. ', ', '],
-\   'cmd_list': [],  " list of lines for the recipe browser.
-\   'cmd_dict': {},  " information for each line of the list.
+\   'cmd_list': [],
+\   'cmd_dict': {},
 \}
 
 let g:recipes_opts.mrk_ptr = '\V\(' . join(g:recipes_opts.markers, '\|') . '\)\$'
