@@ -1,9 +1,8 @@
-" File:
-"   recipes.vim
+" File: recipes.vim
 "
-" Provide helpers for the commands for adding recipes and recipes sections.
-" If the command parsing fails, an appropiate message is shown. Else, the
-" arguments are processed and added to the relevant data structures:
+" Functions for adding recipes and recipes sections. If the command parsing
+" fails, an appropiate message is shown. Else, the arguments are processed and
+" added to the relevant data structures:
 "
 "   g:recipes_opts.cmd_list: list of lines for the recipe browser.
 "   g:recipes_opts.cmd_dict: information for each line of the list.
@@ -20,8 +19,8 @@ let s:section = {'file': '', 'name': ''}
 
 " Correct command usage.
 let s:usage = {
-\   'Recipe': "Recipe 'command' 'description' ['help_tag']",
-\   'RecipeSection': "RecipeSection ['section']",
+\   'Recipe': "Recipe(command, description, help_tag='')",
+\   'RecipeSection': "RecipeSection(section='')",
 \}
 
 """""""
@@ -79,17 +78,24 @@ endf
 " Args:
 "   args: string, raw copy of the arguments.
 " Returns:
-"   string[], a list of tokens.
+"   string[], a list of tokens, or 0 if there was a parse error.
 function! s:parse_args(args)
 
-    let arg_pat = '\v(' . "'([^']|'')*'" . '|' . '"([^"\\]|\\.)*"' . ')'
-    let cmd_pat = '\v^(' . arg_pat . '|\s)*' . '("([^"\\]|\\.)*)?$'
-    let parsed  = []
+    " Pattern for a command argument in the form of a function (via <q-args>).
+    let cmd_pat = '\v\(\zs.{-}\ze\)' . '(\s*"([^"\\]|\\.)*)?$'
+    " Pattern for a string.
+    let str_pat = '\v(' . "'([^']|'')*'" . '|' . '"([^"\\]|\\.)*"' . ')'
+    " Pattern for a function argument list.
+    let arg_pat = '\v(\s*' . str_pat . '\s*,)*(\s*' . str_pat . ')?'
 
-    if a:args =~ cmd_pat
-        call substitute(a:args, arg_pat, '\=add(parsed, eval(submatch(0)))', 'g')
+    let fargs = matchstr(a:args, cmd_pat)
+
+    if a:args !~ cmd_pat || fargs !~ arg_pat
+        return 0
     endif
 
+    let parsed = []
+    call substitute(fargs, str_pat, '\=add(parsed, eval(submatch(0)))', 'g')
     return parsed
 endf
 
@@ -109,7 +115,7 @@ function! s:invalid_call(cmd, sfile, sline, bang, args)
         echomsg 'In ' . a:sfile . ':' . a:sline
     endif
 
-    echomsg '  ' . a:cmd . a:bang . ' ' . a:args
+    echomsg '  ' . a:cmd . a:bang . a:args
     echomsg 'Should be: ' . s:usage[a:cmd]
 endf
 
@@ -126,10 +132,10 @@ endf
 "   args: string, raw copy of the arguments.
 function! recipes#add_recipe(sfile, sline, bang, args)
 
-    " Parse ans check args
-    let parsed = s:parse_args(a:args)
+    " Parse and check args
+    let fargs = s:parse_args(a:args)
 
-    if len(parsed) > 3 || len(parsed) < 2 || parsed[1] =~ '^\s*$'
+    if !type(fargs) || len(fargs) > 3 || len(fargs) < 2 || fargs[1] =~ '^\s*$'
         call s:invalid_call('Recipe', a:sfile, a:sline, a:bang, a:args)
         return
     endif
@@ -141,7 +147,7 @@ function! recipes#add_recipe(sfile, sline, bang, args)
     endif
 
     " Add parsed recipe
-    call s:add_recipe('!' == a:bang, parsed[0], parsed[1], get(parsed, 2, ''))
+    call s:add_recipe('!' == a:bang, fargs[0], fargs[1], get(fargs, 2, ''))
 endf
 
 " Command to add a new recipe section.
@@ -153,15 +159,15 @@ endf
 function! recipes#add_section(sfile, sline, args)
 
     " Parse ans check args
-    let parsed = s:parse_args(a:args)
+    let fargs = s:parse_args(a:args)
 
-    if len(parsed) > 1
+    if !type(fargs) || len(fargs) > 1
         call s:invalid_call('RecipeSection', a:sfile, a:sline, '', a:args)
         return
     endif
 
     " Maintain section
     let s:section.file = a:sfile
-    let s:section.name = get(parsed, 0, '')
+    let s:section.name = get(fargs, 0, '')
 endf
 

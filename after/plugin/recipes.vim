@@ -1,148 +1,148 @@
 
-RecipeSection " Toggle Options
+RecipeSection() " Toggle Options
 
-Recipe ':set wrap!<CR>'  'Enable Word Wrap: Toggle'  "'wrap'"
-Recipe ':set spell!<CR>'  'Enable Spell Checking: Toggle'  "'spell'"
-Recipe ':set list!<CR>'  'Show Invisible Characters: Toggle'  "'list'"
-Recipe ':set nu!<CR>'  'Show Line Numbers: Toggle'  "'number'"
-Recipe ':set cul!<CR>'  'Show Cursor Line: Toggle'  "'cursorline'"
+Recipe(':set wrap!<CR>', 'Enable Word Wrap: Toggle', "'wrap'")
+Recipe(':set spell!<CR>', 'Enable Spell Checking: Toggle', "'spell'")
+Recipe(':set list!<CR>', 'Show Invisible Characters: Toggle', "'list'")
+Recipe(':set nu!<CR>', 'Show Line Numbers: Toggle', "'number'")
+Recipe(':set cul!<CR>', 'Show Cursor Line: Toggle', "'cursorline'")
 
-RecipeSection " Misc Options
+RecipeSection() " Misc Options
 
-Recipe ':set vb t_vb=<CR>'  'Error Bell: Disable'  "'visualbell'"
-Recipe ':set mouse=a<CR>'  'Use Mouse: Enable'  "'mouse'"
-Recipe ':set bs=2<CR>'  'Backspace in Insert Mode'  "'backspace'"
-Recipe ':set ls=2<CR>'  'Show Status Line'  "'laststatus'"
-Recipe ':set t_Co=256<CR>'  'Force 256 Colors'  "'t_Co'"
-Recipe ':set cb=unnamed,unnamedplus<CR>'  'Use System Clipboard'  "'clipboard'"
+Recipe(':set vb t_vb=<CR>', 'Error Bell: Disable', "'visualbell'")
+Recipe(':set mouse=a<CR>', 'Use Mouse: Enable', "'mouse'")
+Recipe(':set bs=2<CR>', 'Backspace in Insert Mode', "'backspace'")
+Recipe(':set ls=2<CR>', 'Show Status Line', "'laststatus'")
+Recipe(':set t_Co=256<CR>', 'Force 256 Colors', "'t_Co'")
+Recipe(':set cb=unnamed,unnamedplus<CR>', 'Use System Clipboard', "'clipboard'")
 
-RecipeSection 'Indentation'
+RecipeSection('Indentation')
 
-Recipe ':set et<CR>'  'Use Tabs'  "'expandtab'"
-Recipe ':set noet<CR>'  'Use Spaces'  "'noexpandtab'"
-Recipe ':retab<CR>'  'Fix mixed case'  ':retab'
+Recipe(':set et<CR>', 'Use Tabs', "'expandtab'")
+Recipe(':set noet<CR>', 'Use Spaces', "'noexpandtab'")
+Recipe(':retab<CR>', 'Fix mixed case', ':retab')
 
-RecipeSection 'Encoding'
+RecipeSection('Encoding')
 
-Recipe ':set enc=utf-8<CR>'  'utf-8'  "'encoding'"
-Recipe ':set enc=utf-16<CR>' 'utf-16' "'encoding'"
-Recipe ':set enc=latin1<CR>' 'latin1' "'encoding'"
+Recipe(':set enc=utf-8<CR>', 'utf-8', "'encoding'")
+Recipe(':set enc=utf-16<CR>', 'utf-16', "'encoding'")
+Recipe(':set enc=latin1<CR>', 'latin1', "'encoding'")
 
-RecipeSection 'Convert Case'
+RecipeSection('Convert Case')
 
-Recipe 'VU' 'Upper Case Current Line'
-Recipe 'Vu' 'Lower Case Current Line'
-Recipe 'viwU' 'Upper Case Current Word'
-Recipe 'viwu' 'Lower Case Current Word'
-Recipe 'V~' 'Swap Case Current Line'
-Recipe 'viw~' 'Swap Case Current Word'
+Recipe('VU', 'Upper Case Current Line')
+Recipe('Vu', 'Lower Case Current Line')
+Recipe('viwU', 'Upper Case Current Word')
+Recipe('viwu', 'Lower Case Current Word')
+Recipe('V~', 'Swap Case Current Line')
+Recipe('viw~', 'Swap Case Current Word')
 
-RecipeSection 'Tab Width'
+RecipeSection('Tab Width')
 
-Recipe ':set sw=1 sts=1 ts=1<CR>' '1'
-Recipe ':set sw=2 sts=2 ts=2<CR>' '2'
-Recipe ':set sw=4 sts=4 ts=4<CR>' '4'
-Recipe ':set sw=8 sts=8 ts=8<CR>' '8'
+Recipe(':set sw=1 sts=1 ts=1<CR>', '1')
+Recipe(':set sw=2 sts=2 ts=2<CR>', '2')
+Recipe(':set sw=4 sts=4 ts=4<CR>', '4')
+Recipe(':set sw=8 sts=8 ts=8<CR>', '8')
 
-RecipeSection 'File'
+RecipeSection('File')
 
-Recipe ':w<CR>' 'Save'
-Recipe ':wa<CR>' 'Save All'
-Recipe ':wq<CR>' 'Save and Close'
-Recipe ':q!<CR>' 'Close Without Saving'
-Recipe ':wqa<CR>' 'Save All and Close'
-Recipe ':qa!<CR>' 'Close All Without Saving'
-Recipe ':saveas<Space>' 'Save As'
-Recipe ':e<Space>' 'Open File'
-Recipe ':e#<CR>' 'Open Last File'
+Recipe(':w<CR>', 'Save')
+Recipe(':wa<CR>', 'Save All')
+Recipe(':wq<CR>', 'Save and Close')
+Recipe(':q!<CR>', 'Close Without Saving')
+Recipe(':wqa<CR>', 'Save All and Close')
+Recipe(':qa!<CR>', 'Close All Without Saving')
+Recipe(':saveas<Space>', 'Save As')
+Recipe(':e<Space>', 'Open File')
+Recipe(':e#<CR>', 'Open Last File')
 
-RecipeSection " Search
+RecipeSection() " Search
 
-Recipe '/' 'Search'
-Recipe '?' 'Search Backwards'
-Recipe '*' 'Search: Current Word'
-Recipe '#' 'Search Backwards: Current Word'
+Recipe('/', 'Search')
+Recipe('?', 'Search Backwards')
+Recipe('*', 'Search: Current Word')
+Recipe('#', 'Search Backwards: Current Word')
 
-RecipeSection 'Search Results'
+RecipeSection('Search Results')
 
-Recipe 'n' 'Next'
-Recipe 'N' 'Previous'
-Recipe ':nohlsearch<CR>' 'Clear Highlighting'
+Recipe('n', 'Next')
+Recipe('N', 'Previous')
+Recipe(':nohlsearch<CR>', 'Clear Highlighting')
 
-RecipeSection 'Tabs'
+RecipeSection('Tabs')
 
-Recipe 'gt' 'Next Tab'
-Recipe 'gT' 'Previous Tab'
-Recipe '1gt' 'Go To Tab 1'
-Recipe '2gt' 'Go To Tab 2'
-Recipe '3gt' 'Go To Tab 3'
-Recipe '4gt' 'Go To Tab 4'
-Recipe '5gt' 'Go To Tab 5'
-Recipe '6gt' 'Go To Tab 6'
-Recipe '7gt' 'Go To Tab 7'
-Recipe '8gt' 'Go To Tab 8'
-Recipe '9gt' 'Go To Tab 9'
-Recipe ':tabnew<CR>' 'New Tab'
+Recipe('gt', 'Next Tab')
+Recipe('gT', 'Previous Tab')
+Recipe('1gt', 'Go To Tab 1')
+Recipe('2gt', 'Go To Tab 2')
+Recipe('3gt', 'Go To Tab 3')
+Recipe('4gt', 'Go To Tab 4')
+Recipe('5gt', 'Go To Tab 5')
+Recipe('6gt', 'Go To Tab 6')
+Recipe('7gt', 'Go To Tab 7')
+Recipe('8gt', 'Go To Tab 8')
+Recipe('9gt', 'Go To Tab 9')
+Recipe(':tabnew<CR>', 'New Tab')
 
-RecipeSection 'Fold'
+RecipeSection('Fold')
 
-Recipe 'zo' 'Open Fold'
-Recipe 'zc' 'Close Fold'
-Recipe 'za' 'Toggle Fold'
-Recipe 'zR' 'Open All Folds'
-Recipe 'zM' 'Close All Folds'
-Recipe 'zj' 'Next Fold'
-Recipe 'zk' 'Previous Fold'
+Recipe('zo', 'Open Fold')
+Recipe('zc', 'Close Fold')
+Recipe('za', 'Toggle Fold')
+Recipe('zR', 'Open All Folds')
+Recipe('zM', 'Close All Folds')
+Recipe('zj', 'Next Fold')
+Recipe('zk', 'Previous Fold')
 
-RecipeSection 'Spell Checking'
+RecipeSection('Spell Checking')
 
-Recipe 'z=' 'Correct Current Word'
-Recipe 'zg' 'Add Current Word To Dictionary'
+Recipe('z=', 'Correct Current Word')
+Recipe('zg', 'Add Current Word To Dictionary')
 
-RecipeSection 'Vim'
+RecipeSection('Vim')
 
-Recipe ':e $MYVIMRC<CR>' 'Edit Vimrc'
-Recipe ':version<CR>' 'Version'
-Recipe ':help<CR>' 'Help'
-Recipe ':xa<CR>' 'Save and Exit'
-Recipe ':xa<CR>' 'Save and Quit'
-Recipe ':xa!<CR>' 'Exit'
-Recipe ':xa!<CR>' 'Quit'
+Recipe(':e $MYVIMRC<CR>', 'Edit Vimrc')
+Recipe(':version<CR>', 'Version')
+Recipe(':help<CR>', 'Help')
+Recipe(':xa<CR>', 'Save and Exit')
+Recipe(':xa<CR>', 'Save and Quit')
+Recipe(':xa!<CR>', 'Exit')
+Recipe(':xa!<CR>', 'Quit')
 
-RecipeSection 'History'
+RecipeSection('History')
 
-Recipe 'u' 'Undo'
-Recipe '<C-r>' 'Redo'
+Recipe('u', 'Undo')
+Recipe('<C-r>', 'Redo')
 
-RecipeSection 'Delete'
+RecipeSection('Delete')
 
-Recipe 'ggdG' 'Entire File'
-Recipe 'dd' 'Current Line'
-Recipe 'diw' 'Current Word'
+Recipe('ggdG', 'Entire File')
+Recipe('dd', 'Current Line')
+Recipe('diw', 'Current Word')
 
-RecipeSection 'Insert'
+RecipeSection('Insert')
 
-Recipe 'o' 'Line After'
-Recipe 'o' 'Line Below'
-Recipe 'O' 'Line Before'
-Recipe 'O' 'Line Above'
+Recipe('o', 'Line After')
+Recipe('o', 'Line Below')
+Recipe('O', 'Line Before')
+Recipe('O', 'Line Above')
 
-RecipeSection 'Go To'
+RecipeSection('Go To')
 
-Recipe 'gg' 'Beginning Of File'
-Recipe 'G' 'End Of File'
-Recipe 'w' 'Next Word'
-Recipe 'b' 'Previous Word'
-Recipe 'b' 'Beginning Of Word'
-Recipe 'e' 'End Of Word'
-Recipe ')' 'Next Sentence'
-Recipe '(' 'Previous Sentence'
-Recipe '}' 'Next Paragraph'
-Recipe '{' 'Previous Paragraph'
-Recipe '^' 'Beginning Of Line'
-Recipe '$' 'End Of Line'
+Recipe('gg', 'Beginning Of File')
+Recipe('G', 'End Of File')
+Recipe('w', 'Next Word')
+Recipe('b', 'Previous Word')
+Recipe('b', 'Beginning Of Word')
+Recipe('e', 'End Of Word')
+Recipe(')', 'Next Sentence')
+Recipe('(', 'Previous Sentence')
+Recipe('}', 'Next Paragraph')
+Recipe('{', 'Previous Paragraph')
+Recipe('^', 'Beginning Of Line')
+Recipe('$', 'End Of Line')
 
-RecipeSection 'Search and Go To'
+RecipeSection('Search and Go To')
 
-Recipe '//e<Left><Left>' 'End Of Match'
+Recipe('//e<Left><Left>', 'End Of Match')
 
