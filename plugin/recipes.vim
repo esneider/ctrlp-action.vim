@@ -22,7 +22,7 @@ let g:recipes_opts   = {
 let g:recipes_opts.mrk_ptr = '\V\(' . join(g:recipes_opts.markers, '\|') . '\)\$'
 
 " Recipe browser command.
-command! -bar CtrlPRecipes
+command -bar CtrlPRecipes
 \   call recipes#ctrlp#open()
 
 " Command to load the plugin.
@@ -30,10 +30,10 @@ function! recipes#load()
 endf
 
 " Command to add a new recipe.
-command! -nargs=+ -bang Recipe
+command -nargs=+ -bang Recipe
 \   call recipes#add_recipe(expand('<sfile>:p'), expand('<slnum>'), '<bang>', <q-args>)
 
 " Command to add a new recipes section.
-command! -nargs=? RecipeSection
+command -nargs=? RecipeSection
 \   call recipes#add_section(expand('<sfile>:p'), expand('<slnum>'), <q-args>)
 

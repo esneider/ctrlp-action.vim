@@ -45,8 +45,8 @@ function! recipes#ctrlp#accept(mode, choice)
     \ }[a:mode]
 
     " Process command to add it to the history
-    let type = cmd =~ '^[:/?]' ? cmd[0] : '@'
-    let hist = cmd !~ '^[:/?]' ? cmd : cmd =~ "\r$" ? cmd[1:-2] : ''
+    let type = cmd =~ '\v^[:/?]' ? cmd[0] : '@'
+    let hist = cmd !~ '\v^[:/?]' ? cmd : cmd =~ "\r$" ? cmd[1:-2] : ''
 
     " If the recipe command had a bang, allow user mappings
     let mode = action.bang ? 'm' : 'n'

@@ -31,5 +31,5 @@ highlight link recipesMatch   Constant
 highlight link recipesCmdLine recipesInvisible
 highlight link recipesMarker  recipesInvisible
 
-let b:current_syntax = "recipes.vim"
+let b:current_syntax = 'recipes.vim'
 

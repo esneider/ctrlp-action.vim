@@ -39,7 +39,7 @@ function! s:add_recipe(bang, cmd, action, help)
     let cmd   = a:cmd
     let kcode = '\v\<\w(\w|-)*\w\>'
     let enter = match(cmd, '\c<CR>$')
-    let space = match(cmd, '\c\(<Space>\| \)$')
+    let space = match(cmd, '\v\c(\<Space\>| )$')
     let pos   = match(cmd, '\v\c%(\<(Left|Right|Home|End)\>)+$')
 
     " Compress trailing keycodes
@@ -54,11 +54,11 @@ function! s:add_recipe(bang, cmd, action, help)
     if len > s:opts.cmd_len | let cmd = '' | let len = 0 | endif
 
     " Get section
-    let section = s:section.name =~ '^\s*$' ? '' : s:section.name . ': '
+    let section = s:section.name =~ '\v^\s*$' ? '' : s:section.name . ': '
 
     " Pretty print
     let len = s:opts.cmd_len + len(cmd) - len
-    let rcp = substitute(a:action, '\s*$', '', '')
+    let rcp = substitute(a:action, '\v\s*$', '', '')
     let cmd = printf("%*s\t%s%s", len, cmd, section, rcp)
 
     " Transform literal keycodes
@@ -135,7 +135,7 @@ function! recipes#add_recipe(sfile, sline, bang, args)
     " Parse and check args
     let fargs = s:parse_args(a:args)
 
-    if !type(fargs) || len(fargs) > 3 || len(fargs) < 2 || fargs[1] =~ '^\s*$'
+    if !type(fargs) || len(fargs) > 3 || len(fargs) < 2 || fargs[1] =~ '\v^\s*$'
         call s:invalid_call('Recipe', a:sfile, a:sline, a:bang, a:args)
         return
     endif
