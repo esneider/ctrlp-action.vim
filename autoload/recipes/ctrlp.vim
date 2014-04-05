@@ -2,8 +2,6 @@
 " Vars
 """"""
 
-call recipes#load()
-
 call add(g:ctrlp_ext_vars, {
 \   'init': 'recipes#ctrlp#init()',
 \   'accept': 'recipes#ctrlp#accept',
@@ -22,6 +20,10 @@ let s:id = g:ctrlp_builtins + len(g:ctrlp_ext_vars)
 " Public
 """"""""
 
+" Set up the CtrlP buffer.
+"
+" Returns:
+"   string[], a list of recipe strings.
 function! recipes#ctrlp#init()
 
     setlocal filetype=recipes.vim encoding=utf-8 scrolloff=0 nolist
@@ -30,6 +32,11 @@ function! recipes#ctrlp#init()
     return g:recipes_opts.cmd_list
 endf
 
+" Execute correct action after user selection.
+"
+" Arguments:
+"   mode: string, one of h, t, v, e, depending on the user action.
+"   choice: string, user selected recipe.
 function! recipes#ctrlp#accept(mode, choice)
 
     call ctrlp#exit()
@@ -55,6 +62,7 @@ function! recipes#ctrlp#accept(mode, choice)
     call feedkeys(cmd, mode)
 endf
 
+" Override CtrlP matcher with our own when the Recipe browser is opened.
 function! recipes#ctrlp#open()
 
     " This is a hack to change the default matcher just for this

@@ -11,7 +11,7 @@ endif
 let g:loaded_recipes = 1
 
 " Global plugin variables.
-let g:recipes_opts   = {
+let g:recipes_opts = {
 \   'cmd_len': get(g:, 'recipes_cmd_len', 11),
 \   'cr_char': get(g:, 'recipes_cr_char', '↩'),
 \   'markers': ['  ', '. ', ', '],
@@ -25,9 +25,9 @@ let g:recipes_opts.mrk_ptr = '\V\(' . join(g:recipes_opts.markers, '\|') . '\)\$
 command -bar CtrlPRecipes
 \   call recipes#ctrlp#open()
 
-" Command to load the plugin.
-function! recipes#load()
-endf
+" Command to load the plugin from a recipe file.
+command -nargs=? RecipeBegin
+\   call recipes#begin()
 
 " Command to add a new recipe.
 command -nargs=+ -bang Recipe

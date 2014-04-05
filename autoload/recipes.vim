@@ -75,7 +75,7 @@ endf
 
 " Tokenize the arguments string.
 "
-" Args:
+" Arguments:
 "   args: string, raw copy of the arguments.
 " Returns:
 "   string[], a list of tokens, or 0 if there was a parse error.
@@ -101,7 +101,7 @@ endf
 
 " Show message after an invalid command call.
 "
-" Args:
+" Arguments:
 "   cmd: string, command name.
 "   sfile: string, current file path.
 "   sline: number, current line.
@@ -123,9 +123,13 @@ endf
 " Public
 """"""""
 
+" Command to load the plugin from a recipe file.
+function! recipes#begin()
+endf
+
 " Command to add a new recipe.
 "
-" Args:
+" Arguments:
 "   sfile: string, current file path.
 "   sline: number, current line.
 "   bang: string, '!' if the command had the ! modifier.
@@ -152,7 +156,7 @@ endf
 
 " Command to add a new recipe section.
 "
-" Args:
+" Arguments:
 "   sfile: string, current file path.
 "   sline: number, current line.
 "   args: string, raw copy of the arguments.

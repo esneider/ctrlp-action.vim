@@ -1,3 +1,4 @@
+RecipeBegin()
 
 RecipeSection() " Toggle Options
 
@@ -18,8 +19,8 @@ Recipe(':set cb=unnamed,unnamedplus<CR>', 'Use System Clipboard', "'clipboard'")
 
 RecipeSection('Indentation')
 
-Recipe(':set et<CR>', 'Use Tabs', "'expandtab'")
-Recipe(':set noet<CR>', 'Use Spaces', "'noexpandtab'")
+Recipe(':set noet<CR>', 'Use Tabs', "'noexpandtab'")
+Recipe(':set et<CR>', 'Use Spaces', "'expandtab'")
 Recipe(':retab<CR>', 'Fix mixed case', ':retab')
 
 RecipeSection('Encoding')
