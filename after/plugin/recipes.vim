@@ -1,5 +1,3 @@
-RecipeBegin()
-
 RecipeSection() " Toggle Options
 
 Recipe(':set wrap!<CR>', 'Enable Word Wrap: Toggle', "'wrap'")

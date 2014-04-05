@@ -33,6 +33,13 @@ function! s:highlight(start, pattern, markers)
     call matchadd('recipesMatch', start . '\zs' . a:pattern . '\ze\.\*' . a:markers[0] . '\$')
 endf
 
+" Comparator to sort filtered recipes by score.
+"
+" Arguments:
+"   a: [string, number], first recipe.
+"   b: [string, number], second recipe.
+" Returns:
+"   number, < 0, 0 or > 0, depending if less, equal or greater.
 function! s:sort_cmp(a, b)
 
     return a:a[1] - a:b[1]
@@ -63,9 +70,23 @@ endf
 " Public
 """"""""
 
-" 0. We match the pattern exactly, and append g:recipes_opts.markers[0].
-" 1. We match by word beginnings, and append g:recipes_opts.markers[1].
-" 2. We match any increasing subsequence and append g:recipes_opts.markers[2].
+" Filter curren recipes with the new user input.
+"
+" 0. Match pattern exactly. (TODO: this might be redundant)
+" 1. Match pattern words with word beginnings.
+" 2. Match pattern with word beginnings. (TODO)
+" 3. Match pattern with increasing subsequence.
+"
+" Arguments:
+"   lines:  string[], list of current recipes.
+"   input:  string, current user input.
+"   limit:  ??.
+"   mmode:  ??.
+"   ispath: ??.
+"   crfile: ??.
+"   regex:  ??.
+" Returns:
+"   string[], list of filtered recipes.
 function! recipes#matcher#match(lines, input, limit, mmode, ispath, crfile, regex)
 
     let lines   = []

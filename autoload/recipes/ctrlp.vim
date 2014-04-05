@@ -35,7 +35,7 @@ endf
 " Execute correct action after user selection.
 "
 " Arguments:
-"   mode: string, one of h, t, v, e, depending on the user action.
+"   mode:   string, one of h, t, v, e, depending on the user action.
 "   choice: string, user selected recipe.
 function! recipes#ctrlp#accept(mode, choice)
 

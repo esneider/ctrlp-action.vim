@@ -30,10 +30,10 @@ let s:usage = {
 " Preprocess recipe for later usage.
 "
 " Arguments:
-"   bang: boolean, wheter the command had the ! modifier.
-"   cmd: string, recipe keycodes.
+"   bang:   boolean, wheter the command had the ! modifier.
+"   cmd:    string, recipe keycodes.
 "   action: string, recipe description.
-"   help: string, recipe help command.
+"   help:   string, recipe help command.
 function! s:add_recipe(bang, cmd, action, help)
 
     let cmd   = a:cmd
@@ -102,11 +102,11 @@ endf
 " Show message after an invalid command call.
 "
 " Arguments:
-"   cmd: string, command name.
+"   cmd:   string, command name.
 "   sfile: string, current file path.
 "   sline: number, current line.
-"   bang: string, '!' if the command had the ! modifier.
-"   args: string, raw copy of the arguments.
+"   bang:  string, '!' if the command had the ! modifier.
+"   args:  string, raw copy of the arguments.
 function! s:invalid_call(cmd, sfile, sline, bang, args)
 
     echomsg 'Invalid ' . a:cmd
@@ -123,17 +123,13 @@ endf
 " Public
 """"""""
 
-" Command to load the plugin from a recipe file.
-function! recipes#begin()
-endf
-
 " Command to add a new recipe.
 "
 " Arguments:
 "   sfile: string, current file path.
 "   sline: number, current line.
-"   bang: string, '!' if the command had the ! modifier.
-"   args: string, raw copy of the arguments.
+"   bang:  string, '!' if the command had the ! modifier.
+"   args:  string, raw copy of the arguments.
 function! recipes#add_recipe(sfile, sline, bang, args)
 
     " Parse and check args
@@ -159,7 +155,7 @@ endf
 " Arguments:
 "   sfile: string, current file path.
 "   sline: number, current line.
-"   args: string, raw copy of the arguments.
+"   args:  string, raw copy of the arguments.
 function! recipes#add_section(sfile, sline, args)
 
     " Parse ans check args
