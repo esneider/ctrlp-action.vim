@@ -113,11 +113,11 @@ Recipe('<<', 'Decrease One Level to Current Line', '<<')
 Recipe('>ip', 'Increase One Level to Current Paragraph', '>')
 Recipe('<ip', 'Decrease One Level to Current Paragraph', '<')
 
-RecipeSection('Encoding')
+RecipeSection('Re-encode')
 
-Recipe(':set enc=utf-8<CR>', 'utf-8', "'encoding'")
-Recipe(':set enc=utf-16<CR>', 'utf-16', "'encoding'")
-Recipe(':set enc=latin1<CR>', 'latin1', "'encoding'")
+Recipe(':set fenc=utf-8<CR>', 'utf-8', "'fileencoding'")
+Recipe(':set fenc=utf-16<CR>', 'utf-16', "'fileencoding'")
+Recipe(':set fenc=latin1<CR>', 'latin1', "'fileencoding'")
 
 RecipeSection('Convert Case')
 
@@ -253,27 +253,18 @@ Recipe('}', 'Next Paragraph', '}')
 Recipe('{', 'Previous Paragraph', '{')
 Recipe('^', 'Beginning of Line', '^')
 Recipe('$', 'End of Line', '$')
-Recipe('%', 'Matching parentheses')
-Recipe('%', 'Matching bracket')
+Recipe('%', 'Matching Parentheses')
+Recipe('%', 'Matching Bracket')
 
 RecipeSection('Search and Go To')
 
 Recipe('//e<Left><Left>', 'End of Match', 's/\e')
 
-RecipeSection() " Misc Commands
+RecipeSection('Fix Indentation')
 
-Recipe('.', 'Repeat Last Command', '.')
-Recipe('J', 'Join Lines', 'J')
-Recipe(':%sort<CR>', 'Sort All Lines', ':sort')
-Recipe(':cd %:h<CR>', 'Change to the Directory of the Current File', ':cd')
-Recipe('gf', 'Open File Name Under Cursor', 'gf')
-Recipe('ga', 'Current Character ASCII Value', 'ga')
-Recipe('g8', 'Current Character utf-8 Value', 'ga')
-Recipe('<C-a>', 'Increment Number Under Cursor', 'CTRL-A')
-Recipe('<C-x>', 'Increment Number Under Cursor', 'CTRL-X')
-Recipe('gg=G', 'Fix Indentation of All File', '=')
-Recipe('==', 'Fix Indentation of Current Line', '==')
-Recipe('=ip', 'Fix Indentation of Current Paragraph', '=')
+Recipe('gg=G', 'of All File', '=')
+Recipe('==', 'of Current Line', '==')
+Recipe('=ip', 'of Current Paragraph', '=')
 
 RecipeSection('Replace')
 
@@ -284,4 +275,21 @@ Recipe('cc', 'Current Line', 'c')
 Recipe('ci"', 'Text Inside Double Quotes', 'd')
 Recipe("ci'", 'Text Inside Single Quotes', 'd')
 Recipe('ci(', 'Text Inside Parentheses', 'dib')
+
+RecipeSection('Sort')
+
+Recipe(':%sort<CR>', 'All Lines Alphabetically', ':sort')
+Recipe(':%sort n<CR>', 'All Lines Numerically', ':sort')
+
+RecipeSection() " Misc Commands
+
+Recipe('.', 'Repeat Last Command', '.')
+Recipe('J', 'Join Lines', 'J')
+Recipe(':cd %:h<CR>', 'Change Directory to Current File Directory', ':cd')
+Recipe('gf', 'Open File Name Under Cursor', 'gf')
+Recipe('ga', 'Show Current Character ASCII Value', 'ga')
+Recipe('g8', 'Show Current Character utf-8 Value', 'ga')
+Recipe('<C-a>', 'Increment Number Under Cursor', 'CTRL-A')
+Recipe('<C-x>', 'Decrement Number Under Cursor', 'CTRL-X')
+Recipe(':TOhtml<CR>', 'Convert current window to HTML', ':TOhtml')
 
